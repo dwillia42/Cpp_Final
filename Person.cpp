@@ -14,11 +14,31 @@ Person::Person(string name, int age, string gender){
     this->gender = gender;
 }
 
-void Person::PrintDesc(){
-    /*HERE YOU PRINT AN INTERESTING DESCRIPTION OF THE NPC*/
+void Person::SetDesc(string description){
+    this->description;
 }
 
-void Person::Dialogue(){
+void Person::PrintDesc(){
+    cout << description << endl;
+}
+
+ void Person::SetName(string name){
+    this->name = name;
+ }
+
+ string Person::GetName() const{
+    return name;
+ }
+ 
+ string Person::GetGender() const{
+    return gender;
+ }
+
+ int Person::GetAge(){
+    return age;
+ }
+
+string Person::Dialogue(){
    //set the current key to the start key
     string currKey = "start";
 
@@ -78,6 +98,9 @@ void Person::Dialogue(){
 
         currKey = currState.choices.at(choice_index - 1).nextState;
     }
+
+    //Returns key so we can add/subtract points based on the final state of dialogue
+    return currKey;
 }
 
 

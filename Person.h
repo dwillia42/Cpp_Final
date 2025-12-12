@@ -18,14 +18,19 @@ class Person{
         map<string, DialogueState> dialogueMap;
         string name;    
         string gender;
+        string description;
         int age;
     public:
         Person(string name, int age, string gender);
+        void SetDesc(string description);
         void PrintDesc();
-        void Dialogue();
-        void SetDialogueMap(const map<string, DialogueState>& dialogueMap){
-            this->dialogueMap = dialogueMap;
-        }
+        void SetName(string name);
+        string GetName() const;
+        string GetGender() const;
+        int GetAge();
+        string Dialogue();
+        void SetDialogue(const map<string, DialogueState>& dialogueMap);
+        
 
 
 };
