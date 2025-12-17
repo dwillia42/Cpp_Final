@@ -10,6 +10,7 @@ class House{
         Person NPC;
         string HouseName;
         string address;
+        bool isVisited;
     public:
     House(const Person& NPC, string houseName, string adress);
     void PrintInfo();

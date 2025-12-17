@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -38,6 +39,9 @@ void Person::PrintDesc(){
     return age;
  }
 
+ /*Idea to use a map from: ZyBooks: 14.4 
+ How to use an iterator from ZyBooks: 14.2
+ Implementation method had assitance from MathGPT*/
 string Person::Dialogue(){
    //set the current key to the start key
     string currKey = "start";
@@ -89,11 +93,28 @@ string Person::Dialogue(){
         size_t choice_index = -1;
         cin >> choice_index;
 
-
-        //Input validation for choice index
-        while (choice_index < 1 || choice_index > currState.choices.size()){
-            cout << "Invalid choice. Please enter another choice." << endl;
-            cin >> choice_index;
+        /*Revised Input Validation (wrong data type validation from:GeeksForGeeks)
+        https://www.geeksforgeeks.org/cpp/how-to-handle-wrong-data-type-input-in-cpp/
+        */
+        while(true){
+            if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
+                if (cin.fail()){
+                    cout << "Expected an integer input. Please try again." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cin >> choice_index;
+                }
+                else if (choice_index < 1 || choice_index > currState.choices.size()){
+                    cout << "Input must be an from the given choice options:" << endl;
+                    for (size_t i = 0; i < currState.choices.size(); i++){
+                        cout << "[" << (i + 1) << "] " << currState.choices.at(i).choice << endl;    
+                    }
+                    cin >> choice_index;
+                }
+            }
+            else{
+                break;
+            }
         }
 
         currKey = currState.choices.at(choice_index - 1).nextState;
