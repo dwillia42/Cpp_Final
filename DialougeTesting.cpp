@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -95,15 +96,38 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
         }
 
         //initializes and reads user input
-        size_t choice_index = -1;
+        size_t choice_index;
         cin >> choice_index;
 
+        //Revised Input Validation
+        while(true){
+            if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
+                if (cin.fail()){
+                    cout << "Expected an integer input. Please try again." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cin >> choice_index;
+                }
+                else if (choice_index < 1 || choice_index > currState.choices.size()){
+                    cout << "Input must be an from the given choice options:" << endl;
+                    for (size_t i = 0; i < currState.choices.size(); i++){
+                        cout << "[" << (i + 1) << "] " << currState.choices.at(i).choice << endl;    
+                    }
+                    cin >> choice_index;
+                }
+                else{
+                    break;
+                }    
+            }
+        }
 
-        //Input validation for choice index
+
+
+        /*//Input validation for choice index
         while (choice_index < 1 || choice_index > currState.choices.size()){
             cout << "Invalid choice. Please enter another choice." << endl;
             cin >> choice_index;
-        }
+        }*/
 
         currKey = currState.choices.at(choice_index - 1).nextState;
     }
