@@ -92,14 +92,16 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
         /*Give the user available choice options*/
 
         for (size_t i = 0; i < currState.choices.size(); i++){
-            cout << "Choice " << (i + 1) << ": " << currState.choices.at(i).choice << endl;    
+            cout << "[" << (i + 1) << "] " << currState.choices.at(i).choice << endl;    
         }
 
         //initializes and reads user input
         size_t choice_index;
         cin >> choice_index;
 
-        //Revised Input Validation
+        /*Revised Input Validation (wrong data type validation from:GeeksForGeeks)
+        https://www.geeksforgeeks.org/cpp/how-to-handle-wrong-data-type-input-in-cpp/
+        */
         while(true){
             if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
                 if (cin.fail()){
@@ -115,19 +117,11 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
                     }
                     cin >> choice_index;
                 }
-                else{
-                    break;
-                }    
+            }
+            else{
+                break;
             }
         }
-
-
-
-        /*//Input validation for choice index
-        while (choice_index < 1 || choice_index > currState.choices.size()){
-            cout << "Invalid choice. Please enter another choice." << endl;
-            cin >> choice_index;
-        }*/
 
         currKey = currState.choices.at(choice_index - 1).nextState;
     }
