@@ -14,10 +14,13 @@ class Player{
     public:
     void AddVote();
     void InitializeMap();
-    string GetCurrentLocation();
+    void FillSection(const House& houseLeft, const House& houseRight, int sectionNum);
+    void FreeMap();
+    void ViewCurrentLocation();
     void ViewVotes();
     void ViewMap();
     void ViewInventory();
+    string ChooseFromInventory();
     void MovePrompt();
     void ViewHousesVisited();
 

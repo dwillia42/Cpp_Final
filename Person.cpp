@@ -9,6 +9,12 @@ using namespace std;
 
 #include "Person.h"
 
+Person::Person(){
+    this->name = "Unnamed";
+    this->age = -1;
+    this->gender = "Male";
+}
+
 Person::Person(string name, int age, string gender){
     this->name = name;
     this->age = age;

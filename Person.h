@@ -21,6 +21,7 @@ class Person{
         string description;
         int age;
     public:
+        Person();
         Person(string name, int age, string gender);
         void SetDesc(string description);
         void PrintDesc();

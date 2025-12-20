@@ -12,8 +12,12 @@ class House{
         string address;
         bool isVisited;
     public:
+    House();
     House(const Person& NPC, string houseName, string adress);
     void PrintInfo();
+    string GetHouseName();
+    bool GetVisitationStatus();
+    void WasVisited();
     
     
 };

@@ -27,18 +27,21 @@ int main(){
     map<string, DialogueState> dialogueMap = {
         {"start", {
             
-            "Would you like to go into the forest or town?",
+            "* You decide to knock on the Haviday House"
+            "\n* Someone looks through the windows and opens the door slightly"
+            "\n* \"Hi, I\'m Noel Haviday, my parents said there was a new neighbor coming and to greet them at the door, are you that person?\"",
 
-            {{"Yes", "choice_Yes"},{"No", "choice_No"}}
+            {{"Exit", "choice_exit"},{"Offer", "choice_offer"},
+            {"Compliment","choice_compliment"},{"Challenge","choice_challenge"}}
 
         }},
 
-        {"choice_Yes", {
-            "You have went into the forest, got eaten, and died.",
+        {"choice_exit", {
+            "* You decide to evacuate the premises.",
             {}
         }},
-        {"choice_No", {
-            "You have went into town. You got shot by Demarcus, and died.",
+        {"choice_offer", {
+            "You look into your inventory to see what you can offer:",
             {}
         }}
     };
@@ -79,6 +82,11 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
         /*formats and prints out the text at the current stage of dialogue*/
         cout << "\n-----------\n";
         cout << currState.text << "\n";
+        cout << "-----------\n";
+
+        if (currState.choices.empty() && currKey == "choice_offer"){
+            
+        }
         
         /*If there are no other choices, then the dialogue is over, and the loop 
         breaks
