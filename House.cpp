@@ -45,12 +45,12 @@ void House::PrintInfo(){
 
     //Text that tell's the user what house they're at and the address.
     //Ask the user if they want to see the NPC's description
-    cout << "This is " << HouseName << "." << endl;
-    cout << "The address of this house is: " << address << endl;
+    cout << "\n* The address of this house is: " << address << endl;
     cout << '\n';
     cout << "Would you like to view a description of " << NPC.GetName() << "?" << endl;
     cout << "[" << 1 << "]" << " Yes" << endl;
     cout << "[" << 2 << "]" << " No" << endl;
+    cout << "\n> ";
     
     cin >> ans;
 
@@ -62,10 +62,11 @@ void House::PrintInfo(){
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> ans;
         }
-        else if(ans != 1 || ans != 2){
+        else if(ans != 1 && ans != 2){
             cout << "Input must be an from the given choice options:" << endl;
             cout << "[" << 1 << "]" << " Yes" << endl;
             cout << "[" << 2 << "]" << " No" << endl;
+            cout << "\n> ";
             cin >> ans;
         }
         else{
@@ -76,6 +77,10 @@ void House::PrintInfo(){
     //If the player's choice was yes ([1]), then the description is printed.
     if (ans == 1){
         NPC.PrintDesc();
+        cout << "\n* Press Enter to continue..." << endl;
+        cout << "\n> ";
+        cin.ignore();
+        cin.get();
     }
     
 }

@@ -267,7 +267,7 @@ void GameData::InitializeDialogue(){
                 "* \"Get out, already. Wasting my time here. Go to the Library or something,"
                 "\nfirst.\""
                 "\n"
-                "\n* You have not secured Eri Jinnsen\'s vote.",
+                "\n* You have not secured Jorimia Jo\'s vote.",
 
                 {{"Try again.", "choice_tryAgain"}, {"Leave.","choice_leave"}}
             }},
@@ -290,7 +290,7 @@ void GameData::InitializeDialogue(){
 
                 {{"Toreor in the Spring of 2029.", "choice_Toreor29"},
                  {"Nasuto in the Spring of 2030.", "choice_Nasuto30"},
-                 {"Nasuto in the Winter of 2029.", "choice_Nausto29"}}
+                 {"Nasuto in the Winter of 2029.", "choice_Nasuto29"}}
             }},
 
             {"choice_q1redo", {
@@ -298,7 +298,7 @@ void GameData::InitializeDialogue(){
 
                 {{"Toreor in the Spring of 2029.", "choice_Toreor29"},
                  {"Nasuto in the Spring of 2030.", "choice_Nasuto30"},
-                 {"Nasuto in the Winter of 2029.", "choice_Nausto29"}}
+                 {"Nasuto in the Winter of 2029.", "choice_Nasuto29"}}
             }},
 
             {"choice_Toreor29", {
@@ -333,13 +333,13 @@ void GameData::InitializeDialogue(){
             {"choice_powerful", {
                 "* Jorimiah sighs, you got it wrong, try again?",
 
-                {{"Try Again.", "choice_q1redo"}}
+                {{"Try Again.", "choice_q2redo"}}
             }},
 
             {"choice_intelligent", {
                 "* Jorimiah sighs, you got it wrong, try again?",
 
-                {{"Try Again.", "choice_q1redo"}}
+                {{"Try Again.", "choice_q2redo"}}
             }},
 
             {"choice_goals", {
@@ -529,8 +529,36 @@ void GameData::InitializeDialogue(){
                 "\n* \"Huh? What does that have to do with leading? Wait, where do you think "
                 "\nyou\'re going, we\'re gonna play this game and I\'m gonna win.\"",
 
-                
+                {{"Start game.", "start_Minigame"}}
+            }},
+
+            {"start_Minigame", {
+                "",
+
                 {}
+            }},
+
+            {"veris_Win", {
+                "* You couldn't win."
+                "\n"
+                "\n* \"Wow, you\'re not very good at this, but a person like you would be fine as "
+                "\na MAYOR while I do my actually important things.\""
+                "\n"
+                "\n* You have secured Veris Serket\'s vote.",
+
+                {{"Leave", "choice_leave"}}
+            }},
+
+            {"player_Win", {
+                "* You\'ve won."
+                "\n"
+                "\n* \"Well, I was in a hurry. And usually I\'m a lot more lucky. Go ahead and win "
+                "\nthat MAYOR thing already, I guess........\""
+                "\n"
+                "\n* You have secured Veris Serket\'s vote.",
+
+
+                {{"Leave", "choice_leave"}}
             }},
 
             {"choice_offer", {
@@ -670,7 +698,7 @@ void GameData::InitializeDialogue(){
                 "* But, you had nothing to offer..."
                 "\n"
                 "\n* \"Oh. I was hoping you\'d have something I could add to the curriculum but "
-                "\nyou just put your arms out for nothing. MAybe you should go to the Clinic if "
+                "\nyou just put your arms out for nothing. Maybe you should go to the Clinic if "
                 "\nyou\'re feeling out of it.\""
                 "\n"
                 "\n* You have not secured Laios Vangrad\'s vote.",
@@ -703,6 +731,55 @@ void GameData::InitializeDialogue(){
             }}
         };
 
+        map<string, DialogueState> exitDialogue = {
+            {"start", {
+                "* Your journey is nearly over, you\'ve talked to all those people and maybe "
+                "\n"
+                "something can come out of it now."
+                "\n* You turn the door knob, and it\'s unlocked."
+                "\n"
+                "\n* As you enter the Town Hall you think about all the people you\'ve met."
+                "\n"
+                "\n* Veris, Dr. Adias, Jorimiah, Noel, Eri, Clark, Laios, and even Old Terry."
+                "\n"
+                "\n* You hope they follow through and vote for you."
+                "\n"
+                "\n* You don\'t see Old Terry but there\'s shuffling sounds behind the counter."
+                "\n"
+                "\n* \"Hi Player, great job out there, I\'m just in the back getting the town\'s "
+                "\nvotes online. Just wait a bit and I\'ll have the results soon.\""
+                "\n"
+                "\n* It took a few minutes but he came back with a piece of paper he just printed "
+                "\nwith the results."
+                "\n"
+                "\n* \"What\'s with the confused look? Didn\'t you think more people lived here than "
+                "\nyou saw? Well I\'m reading the results and..."
+                "\n"
+                "\n* by a very close margin, you won!\""
+                "\n"
+                "\n* Wait, really? You completed your one true goal!"
+                "\n"
+                "\n* \"Surprising how close it was when I specifically asked everyone to let me "
+                "\nretire already. Though, in all honesty, what do you know about MAYORing, "
+                "\nanyways?\""
+                "\n"
+                "\n* You thought the point was to become MAYOR?"
+                "\n"
+                "\n* \"Ehh, I suppose it doesn\'t matter anyways.\""
+                "\n"
+                "\n* \"Good Game, Player.\"",
+
+
+                {{"GAME OVER.", "choice_over"}}
+            }},
+
+            {"choice_over",{
+                "Thanks for playing :]",
+
+                {}
+            }}
+        };
+
         SetPersonDialogue(0, introDialogue);
         SetPersonDialogue(1, havidayDialogue);
         SetPersonDialogue(2, eriDialogue);
@@ -724,4 +801,33 @@ vector<Person> GameData::GetPeople(){
 
 void GameData::SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap){
         this->people.at(personIndex).SetDialogue(dialogueMap);
+}
+
+void GameData::InitializeCharacterDescriptions(){
+    string OldTerryDesc = "The current mayor of the town."
+                          "\nHe\'s looking to retire at the ripe age of " + to_string(GetPeople().at(0).GetAge()) + ".";
+    string havidayDesc = "The " + to_string(GetPeople().at(1).GetAge()) + "-year-old daughter of the Havidays."
+                         "\nOften hanging out with the neighborhood kid her age.";
+    string eriDesc = "Maid working to tend the Adias home."
+                     "\nis thinking about moving out.";
+    string joDesc = "Has previously tried to be mayor."
+                    "\nHe's usually home making videos.";
+    string clarkDesc = "Old Terry's friend from way back."
+                       "\nHe likes volunteering at the library.";
+    string verisDesc = "Her family's relatively wealthy."
+                       "\nAnd at only " + to_string(GetPeople().at(5).GetAge()) + " she's playing a way harder game than you.";
+    string adiasDesc = "He runs a small local clinic."
+                       "\nHe expected being a doctor would be cooler.";
+    string laiosDesc = "He's been teaching for 15 years."
+                       "\nHis students prefer the library.";
+
+    this->people.at(0).SetDesc(OldTerryDesc);
+    this->people.at(1).SetDesc(havidayDesc);
+    this->people.at(2).SetDesc(eriDesc);
+    this->people.at(3).SetDesc(joDesc);
+    this->people.at(4).SetDesc(clarkDesc);
+    this->people.at(5).SetDesc(verisDesc);
+    this->people.at(6).SetDesc(adiasDesc);
+    this->people.at(7).SetDesc(laiosDesc);
+
 }

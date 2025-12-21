@@ -1,5 +1,6 @@
 #include "Person.h"
 #include "GameData.h"
+#include "TicTacToe.h"
 
 #include <string>
 #include <map>
@@ -55,12 +56,22 @@ map<string, DialogueState> Person::GetDialogue(){
     return dialogueMap;
 }
 
+void Person::HasVoted(){
+    voteSecured = true;
+}
+
+bool Person::VoteStatus(){
+    return voteSecured;
+}
+
  /*Idea to use a map from: ZyBooks: 14.4 
  How to use an iterator from ZyBooks: 14.2
  Implementation method had assitance from MathGPT*/
-string Person::Dialogue(GameData& game){
+
+vector<string> Person::Dialogue(GameData& game){
    //set the current key to the start key
     string currKey = "start";
+    string prevKey = "";
 
     while(true){
 
@@ -75,7 +86,7 @@ string Person::Dialogue(GameData& game){
     */
 
         if (iter == dialogueMap.end()){
-            cout << "The key you entered is invalid." << endl;
+            cout << "\n* The key you entered is invalid." << endl;
             break;
         }
 
@@ -89,9 +100,7 @@ string Person::Dialogue(GameData& game){
         /*formats and prints out the text at the current stage of dialogue*/
         cout << "\n-----------\n";
         cout << currState.text << "\n";
-        if (currKey != "choice_offer"){
-            cout << "-----------\n";
-        }
+        cout << "\n-----------\n";
 
         /*if the player chooses to offer, then a list of things in the inventory
         will be shown, and the player will choose an item. If the inventory is empty,
@@ -116,13 +125,18 @@ string Person::Dialogue(GameData& game){
                 continue;
             }
         }
+
+        if (currKey == "start_Minigame"){
+            currKey = startTicTacToe();
+            continue;
+        }
         
         /*If there are no other choices, then the dialogue is over, and the loop 
         breaks
         */
 
         if (currState.choices.empty()){
-            cout << "--- Dialogue Ended ---" << endl;\
+            cout << "\n--- Dialogue Ended ---" << endl;\
             break;
         }
 
@@ -134,7 +148,7 @@ string Person::Dialogue(GameData& game){
 
         //initializes and reads user input
         size_t choice_index = -1;
-        cout << "/n> ";
+        cout << "\n> ";
         cin >> choice_index;
 
         /*Revised Input Validation (wrong data type validation from:GeeksForGeeks)
@@ -143,18 +157,18 @@ string Person::Dialogue(GameData& game){
         while(true){
             if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
                 if (cin.fail()){
-                    cout << "Expected an integer input. Please try again." << endl;
+                    cout << "\n* Expected an integer input. Please try again." << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "/n> ";
+                    cout << "\n> ";
                     cin >> choice_index;
                 }
                 else if (choice_index < 1 || choice_index > currState.choices.size()){
-                    cout << "Input must be an from the given choice options:" << endl;
+                    cout << "\n* Input must be an from the given choice options:" << endl;
                     for (size_t i = 0; i < currState.choices.size(); i++){
                         cout << "[" << (i + 1) << "] " << currState.choices.at(i).choice << endl;    
                     }
-                    cout << "/n> ";
+                    cout << "\n> ";
                     cin >> choice_index;
                 }
             }
@@ -162,12 +176,13 @@ string Person::Dialogue(GameData& game){
                 break;
             }
         }
-
+        prevKey = currKey;
         currKey = currState.choices.at(choice_index - 1).nextState;
+
     }
 
     //Returns key so we can add/subtract points based on the final state of dialogue
-    return currKey;
+    return {prevKey, currKey};
 }
 
 

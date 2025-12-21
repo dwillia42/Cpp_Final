@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cctype>
 #include <vector>
+#include <limits>
 
 #include "TicTacToe.h"
 
@@ -96,7 +97,7 @@ string startTicTacToe() {
     }*/
     //not needed i think
     
-   minigameBoard.at(1).at(1) = 'O';
+    minigameBoard.at(1).at(1) = 'O';
     
     //veris too important to go second, also it'd be too easy if player went middle first
     
@@ -119,20 +120,21 @@ string startTicTacToe() {
         printBoard(minigameBoard, rounds);
         if (WinCheck(minigameBoard, playerLetter, playerWin) == false) {
             EnemyTurn(minigameBoard, enemyLetter);
+            cout << endl << "- - - - -" << endl;
             printBoard(minigameBoard, rounds);
         }
     }
     if (WinCheck(minigameBoard, playerLetter, playerWin) == false) {
         cout << endl << "* Its a draw." << endl;
-        return "verisWin";
+        return "veris_Win";
     }
     else if (playerWin == false) {
         cout << endl <<  "* Veris won." << endl;
-        return "verisWin";
+        return "veris_Win";
     }
     else {
         cout << endl << "* You won." << endl;
-        return "playerWin";
+        return "player_Win";
     }
 
 }

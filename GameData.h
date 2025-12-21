@@ -20,7 +20,7 @@ class GameData{
                             Person("Jorimiah Jo", 30, "male"),
                             Person("Clark Woodpecker", 39, "male"),
                             Person("Veris Serket", 16, "female"),
-                            Person("Dr.Adias", 35, "male"),
+                            Person("Dr. Adias", 35, "male"),
                             Person("Laios Vangrad", 48, "male")};
 
     vector<House> houses = {House(people.at(0),"Town Hall", "00 West Mayor Street"),
@@ -36,6 +36,7 @@ class GameData{
     Player player;
     void CreateMap();
     void InitializeDialogue();
+    void InitializeCharacterDescriptions();
     vector<Person> GetPeople();
     void SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap);
     House GetHouse(int i);

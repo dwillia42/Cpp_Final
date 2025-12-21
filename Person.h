@@ -28,6 +28,7 @@ class Person{
         string gender;
         string description;
         int age;
+        bool voteSecured = false;
     public:
         Person();
         Person(string name, int age, string gender);
@@ -37,9 +38,11 @@ class Person{
         string GetName() const;
         string GetGender() const;
         int GetAge();
-        string Dialogue(GameData& game);
+        vector<string> Dialogue(GameData& game);
         map<string, DialogueState> GetDialogue();
         void SetDialogue(const map<string, DialogueState> dialogueMap);
+        void HasVoted();
+        bool VoteStatus();
 
 
 };

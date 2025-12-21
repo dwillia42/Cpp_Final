@@ -41,6 +41,7 @@ class Player{
     void ViewHousesVisited();
     void SetPlayerChar(char move);
     void VoteSecured(string name);
+    int GetVotes();
 
 };
 #endif
