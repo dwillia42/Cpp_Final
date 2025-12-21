@@ -2,7 +2,7 @@
 #define HOUSE_H
 
 #include <string>
-#include "Person.h"
+#include "Person.cpp"
 using namespace std;
 
 class House{

@@ -18,11 +18,11 @@ struct DialogueState{
     };
 
 
-
-
 void run_dialogue(const string& startKey, const map<string, DialogueState>& dialogueMap);
 
 int main(){
+
+    vector<string> items = {"banana", "orange", "apple"};
 
     map<string, DialogueState> dialogueMap = {
         {"start", {
@@ -31,7 +31,7 @@ int main(){
             "\n* Someone looks through the windows and opens the door slightly"
             "\n* \"Hi, I\'m Noel Haviday, my parents said there was a new neighbor coming and to greet them at the door, are you that person?\"",
 
-            {{"Exit", "choice_exit"},{"Offer", "choice_offer"},
+            {{"Exit", "choice_exit"},{"Offer (" + to_string(items.size()) +" items)" , "choice_offer"},
             {"Compliment","choice_compliment"},{"Challenge","choice_challenge"}}
 
         }},
@@ -84,9 +84,8 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
         cout << currState.text << "\n";
         cout << "-----------\n";
 
-        if (currState.choices.empty() && currKey == "choice_offer"){
+        //if (c && currKey == "choice_offer"){
             
-        }
         
         /*If there are no other choices, then the dialogue is over, and the loop 
         breaks
@@ -133,5 +132,4 @@ void run_dialogue(const string& startKey, const map<string, DialogueState>& dial
 
         currKey = currState.choices.at(choice_index - 1).nextState;
     }
-
 }

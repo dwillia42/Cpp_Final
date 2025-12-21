@@ -1,20 +1,21 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+class GameData;
+
 using namespace std;
 
-class Person{
-    private:
-
-    struct DialogueOption{
+struct DialogueOption{
         string choice;
         string nextState;
     };
 
-    struct DialogueState{
+struct DialogueState{
         string text;
         vector<DialogueOption> choices;
     };
+class Person{
+    private:
         map<string, DialogueState> dialogueMap;
         string name;    
         string gender;
@@ -29,9 +30,8 @@ class Person{
         string GetName() const;
         string GetGender() const;
         int GetAge();
-        string Dialogue();
+        void Dialogue(GameData& game);
         void SetDialogue(const map<string, DialogueState>& dialogueMap);
-        
 
 
 };

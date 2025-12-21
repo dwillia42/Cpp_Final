@@ -10,6 +10,28 @@
 
 using namespace std;
 
+Player::Player(){
+    this->votes = 0;
+    this->roadLocation = 0;
+
+    PlayerChar.emplace(0, '±');
+    PlayerChar.emplace(1, ' ');
+    PlayerChar.emplace(2, '│');
+    PlayerChar.emplace(3, ' ');
+
+    PersonChar.emplace("Noel Haviday", 'X');
+    PersonChar.emplace("Eri Jinnsen",'X');
+    PersonChar.emplace("Jorimiah Jo",'X');
+    PersonChar.emplace("Clark Woodpecker",'X');
+    PersonChar.emplace("Veris Serket",'X');
+    PersonChar.emplace("Dr. Adias",'X');
+    PersonChar.emplace("Laios Vangrad",'X');
+}
+
+void Player::SetCurrentHouse(const House& house){
+    currHouse = house;
+}
+
 void Player::AddVote(){
     votes += 1;
 }
@@ -19,19 +41,39 @@ void Player::ViewVotes(){
 }
 
 void Player::ViewInventory(){
+    cout << "Your inventory: " << endl;
+    cout << "-----------------" << endl;
     for (int i = 0; i < inventory.size(); i++){
         cout << "[" << (i + 1) << "]" << inventory.at(i) << endl;
     }
 }
 
+int Player::GetSizeOfInventory(){
+    return inventory.size();
+}
+
+void Player::AddToInventory(string item){
+    inventory.push_back(item);
+}
+
 string Player::ChooseFromInventory(){
     int itemNum;
+    cout << "Enter -1 if you dont want to choose any item." << endl;
     cin >> itemNum;
-    return inventory.at(itemNum - 1);
+    if (itemNum != -1){
+        return inventory.at(itemNum - 1);
+    }
+    else{
+        return "nothing";
+    }
+}
+
+vector<string> Player::GetInventory(){
+    return inventory;
 }
 
 void Player::InitializeMap(){
-    const int NUM_ROADBLOCKS = 6;
+    const int NUM_ROADBLOCKS = 4;
     for (int i = 0; i < NUM_ROADBLOCKS; i++){
         House* currPtr = nullptr;
         currPtr = new House[2];
@@ -53,25 +95,44 @@ void Player::FreeMap(){
     }
 }
 
+void Player::SetPlayerChar(char move) {
+    if (toupper(move) == 'W') {
+        PlayerChar.at(roadLocation) = '±';
+        if ((roadLocation + 1) % 2 == 0) {
+            PlayerChar.at(roadLocation + 1) = '│';
+        }
+        else {
+            PlayerChar.at(roadLocation + 1) = ' ';
+        }
+    }
+    if (toupper(move) == 'S') {
+        PlayerChar.at(roadLocation) = '±';
+        if ((roadLocation - 1) % 2 == 0) {
+            PlayerChar.at(roadLocation - 1) = '│';
+        }
+        else {
+            PlayerChar.at(roadLocation + 1) = ' ';
+        }
+    }
+}
+
+void Player::VoteSecured(string name) {
+    PersonChar.at(name) = 'ü';
+}
+
 void Player::ViewMap(){
     cout << "┌──────┬───┬──────┐\n"
             "│/¯¯¯\\ ║   ║ /¯¯¯\\│\n"
-            "││ T │═╣ │ ╠═│ ? ││\n"
+            "││ T │═╣ " << PlayerChar.at(0) << " ╠═│ " << PersonChar.at("Noel Haviday") << " ││\n"
             "│└───┘ ║   ║ └───┘│\n"
             "│/¯¯¯\\ ║ │ ║ /¯¯¯\\│\n"
-            "││ ? │═╣   ╠═│ ? ││\n"
+            "││ " << PersonChar.at("Eri Jinnsen") << " │═╣ " << PlayerChar.at(1) << " ╠═│ " << PersonChar.at("Jorimiah Jo") << " ││\n"
             "│└───┘ ║ │ ║ └───┘│\n"
             "│/¯¯¯\\ ║   ║ /¯¯¯\\│\n"
-            "││ ? │═╣ │ ╠═│ ? ││\n"
+            "││ " << PersonChar.at("Clark Woodpecker") << " │═╣ " << PlayerChar.at(2) << " ╠═│ " << PersonChar.at("Veris Serket") << " ││\n"
             "│└───┘ ║   ║ └───┘│\n"
             "│/¯¯¯\\ ║ │ ║ /¯¯¯\\│\n"
-            "││ ? │═╣   ╠═│ ? ││\n"
-            "│└───┘ ║ │ ║ └───┘│\n"
-            "│/¯¯¯\\ ║   ║ /¯¯¯\\│\n"
-            "││ ? │═╣ │ ╠═│ ? ││\n"
-            "│└───┘ ║   ║ └───┘│\n"
-            "│/¯¯¯\\ ║ │ ║ /¯¯¯\\│\n"
-            "││ ? │═╣   ╠═│ ? ││\n"
+            "││ " << PersonChar.at("Dr. Adias") << " │═╣ " << PlayerChar.at(3) << " ╠═│ " << PersonChar.at("Laios Vangrad") << " ││\n"
             "│└───┘ ║ │ ║ └───┘│\n"
             "└──────┴───┴──────┘\n"
     << endl;
@@ -104,8 +165,8 @@ void Player::MovePrompt(){
             }
             else if(tolower(move) != 'w' || tolower(move) != 'a' || tolower(move) != 's' || tolower(move) != 'd'){
                 cout << "Input must be an from the given choice options:" << endl;
-                cout << "[" << 1 << "]" << " Yes" << endl;
-                cout << "[" << 2 << "]" << " No" << endl;
+                cout << "   [W]" << endl;
+                cout << "[A][S][D]" << endl;
                 cin >> move;
             }
             else{
@@ -117,10 +178,12 @@ void Player::MovePrompt(){
             case 'W':
                 roadLocation--;
                 cout << "You are now in section " << roadLocation << "." << endl;
+                SetPlayerChar(move);
                 break;
             case 'S':
                 roadLocation++;
                 cout << "You are now in section " << roadLocation << "." << endl;
+                SetPlayerChar(move);
                 break;
             case 'A':
                 currHouse = road.at(roadLocation)[0];
