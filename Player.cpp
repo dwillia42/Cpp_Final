@@ -5,8 +5,10 @@
 #include <algorithm>
 #include <limits>
 #include <cctype>
+#include <windows.h>
 
 #include "Player.h"
+#include "GameData.h"
 
 using namespace std;
 
@@ -14,22 +16,23 @@ Player::Player(){
     this->votes = 0;
     this->roadLocation = 0;
 
-    PlayerChar.emplace(0, '±');
-    PlayerChar.emplace(1, ' ');
-    PlayerChar.emplace(2, '│');
-    PlayerChar.emplace(3, ' ');
+    PlayerChar = {"±", " ", "│", " "};
 
-    PersonChar.emplace("Noel Haviday", 'X');
-    PersonChar.emplace("Eri Jinnsen",'X');
-    PersonChar.emplace("Jorimiah Jo",'X');
-    PersonChar.emplace("Clark Woodpecker",'X');
-    PersonChar.emplace("Veris Serket",'X');
-    PersonChar.emplace("Dr. Adias",'X');
-    PersonChar.emplace("Laios Vangrad",'X');
+    PersonChar.emplace("Noel Haviday", "X");
+    PersonChar.emplace("Eri Jinnsen","X");
+    PersonChar.emplace("Jorimiah Jo","X");
+    PersonChar.emplace("Clark Woodpecker","X");
+    PersonChar.emplace("Veris Serket","X");
+    PersonChar.emplace("Dr. Adias","X");
+    PersonChar.emplace("Laios Vangrad","X");
 }
 
 void Player::SetCurrentHouse(const House& house){
     currHouse = house;
+}
+
+House Player::GetCurrentHouse(){
+    return currHouse;
 }
 
 void Player::AddVote(){
@@ -37,7 +40,7 @@ void Player::AddVote(){
 }
 
 void Player::ViewVotes(){
-    cout << "Current Votes: " << votes << endl;
+    cout << "Current Votes: " << votes << " out of 8." << endl;
 }
 
 void Player::ViewInventory(){
@@ -89,35 +92,35 @@ void Player::FillSection(const House& houseLeft, const House& houseRight, int se
 }
 
 void Player::FreeMap(){
-    for (int i = 0; i < road.size(); i++){
+    for (size_t i = 0; i < road.size(); i++){
         delete[] road.at(i);
         road.at(i) = nullptr;
     }
 }
 
-void Player::SetPlayerChar(char move) {
-    if (toupper(move) == 'W') {
-        PlayerChar.at(roadLocation) = '±';
+void Player::SetPlayerChar(char playerMove) {
+    if (toupper(playerMove) == 'W') {
+        PlayerChar.at(roadLocation) = "±";
         if ((roadLocation + 1) % 2 == 0) {
-            PlayerChar.at(roadLocation + 1) = '│';
+            PlayerChar.at(roadLocation + 1) = "│";
         }
         else {
-            PlayerChar.at(roadLocation + 1) = ' ';
+            PlayerChar.at(roadLocation + 1) = " ";
         }
     }
-    if (toupper(move) == 'S') {
-        PlayerChar.at(roadLocation) = '±';
+    if (toupper(playerMove) == 'S') {
+        PlayerChar.at(roadLocation) = "±";
         if ((roadLocation - 1) % 2 == 0) {
-            PlayerChar.at(roadLocation - 1) = '│';
+            PlayerChar.at(roadLocation - 1) = "│";
         }
         else {
-            PlayerChar.at(roadLocation + 1) = ' ';
+            PlayerChar.at(roadLocation - 1) = " ";
         }
     }
 }
 
 void Player::VoteSecured(string name) {
-    PersonChar.at(name) = 'ü';
+    PersonChar.at(name) = "@";
 }
 
 void Player::ViewMap(){
@@ -134,8 +137,8 @@ void Player::ViewMap(){
             "│/¯¯¯\\ ║ │ ║ /¯¯¯\\│\n"
             "││ " << PersonChar.at("Dr. Adias") << " │═╣ " << PlayerChar.at(3) << " ╠═│ " << PersonChar.at("Laios Vangrad") << " ││\n"
             "│└───┘ ║ │ ║ └───┘│\n"
-            "└──────┴───┴──────┘\n"
-    << endl;
+            "└──────┴───┴──────┘\n";
+    
 }
 
 void Player::ViewCurrentLocation(){
@@ -143,78 +146,157 @@ void Player::ViewCurrentLocation(){
 }
 
 void Player::MovePrompt(){
-    char move;
+    SetConsoleOutputCP(CP_UTF8);
+    char playerMove;
+    cout << "\n";
     cout << "You are currently in section " << roadLocation << "." << endl;
+    cout << "---------------------------------" << endl;
+    ViewMap();
+    cout << "---------------------------------" << endl;
     cout << "To your left is " << road.at(roadLocation)[0].GetHouseName() << endl;
     cout << "To your right is " << road.at(roadLocation)[1].GetHouseName() << endl;
-    cout << "Where would you like to go?" << endl;
-    cout << "[W] Up the road" << endl;
-    cout << "[A] To the left towards" << road.at(roadLocation)[0].GetHouseName() << endl;
-    cout << "[S] Down the road" << endl;
-    cout << "[D] To the right towards" << road.at(roadLocation)[1].GetHouseName() << endl;
+    cout << "What would you like to do?" << endl;
+    cout << "---------------------------------" << endl;
+    cout << "[W] Move up the road" << endl;
+    cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
+    cout << "[S] Move down the road" << endl;
+    cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
+    cout << "[I] View Inventory" << endl;
+    cout << "[V] View Votes" << endl;
+    cout << "[M] View Map" << endl;
 
+    cin >> playerMove;
     while(true){
-    cin >> move;
-
         while(true){
             if (cin.fail()){
                 cout << "Expected a character input. Please try again." << endl;
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cin >> move;
+                cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+                cin >> playerMove;
             }
-            else if(tolower(move) != 'w' || tolower(move) != 'a' || tolower(move) != 's' || tolower(move) != 'd'){
+            else if(tolower(playerMove) != 'w' && tolower(playerMove) != 'a' && tolower(playerMove) != 's' && tolower(playerMove) != 'd' 
+            && tolower(playerMove) != 'i' && tolower(playerMove) != 'v' && tolower(playerMove) != 'm'){ 
                 cout << "Input must be an from the given choice options:" << endl;
                 cout << "   [W]" << endl;
-                cout << "[A][S][D]" << endl;
-                cin >> move;
+                cout << "[A][S][D]" << endl << endl;
+                cout << "[I][V][M]" << endl;
+                cin >> playerMove;
             }
             else{
                 break;
             }
         }
 
-        switch (move){
-            case 'W':
+        switch (tolower(playerMove)){
+            case 'w':
                 roadLocation--;
+                cout << "\n";
                 cout << "You are now in section " << roadLocation << "." << endl;
-                SetPlayerChar(move);
+                SetPlayerChar(playerMove);
                 break;
-            case 'S':
+            case 's':
                 roadLocation++;
+                cout << "\n";
                 cout << "You are now in section " << roadLocation << "." << endl;
-                SetPlayerChar(move);
+                SetPlayerChar(playerMove);
                 break;
-            case 'A':
+            case 'a':
                 currHouse = road.at(roadLocation)[0];
+                cout << "\n";
                 cout << "You are now at " << currHouse.GetHouseName() << endl;
                 currHouse.WasVisited();
                 break;
-            case 'D':
+            case 'd':
                 currHouse = road.at(roadLocation)[1];
+                cout << "\n";
                 cout << "You are now at " << currHouse.GetHouseName() << endl;
                 currHouse.WasVisited();
+                break;
+            case 'i':
+                cout << "\n";
+                ViewInventory();
+                break;
+            case 'v':
+                cout << "\n";
+                ViewVotes();
+                break;
+            case 'm':
+                cout << "\n";
+                cout << "---------------------------------" << endl;
+                ViewMap();
+                cout << "---------------------------------" << endl;
                 break;
         }
 
-        if (tolower(move) == 'w' || tolower(move) == 's'){
+        if (tolower(playerMove) == 'w' || tolower(playerMove) == 's'){
             cout << "You aren't currently at any buidling." << endl;
-            cout << "Press [W] if you like to move up a section again, and [S] if you would like to move down a section again." << endl; 
-            cout << "Press [A] to go to " << road.at(roadLocation)[0].GetHouseName() << ", or [D] to go to " << road.at(roadLocation)[1].GetHouseName() << endl;
+            cout <<"\n";
+            cout << "What would you like to do?" << endl;
+            cout << "---------------------------------" << endl;
+            cout << "[W] Move up the road" << endl;
+            cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
+            cout << "[S] Move down the road" << endl;
+            cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
+            cout << "[I] View Inventory" << endl;
+            cout << "[V] View Votes" << endl;
+            cout << "[M] View Map" << endl;
+            cin >> playerMove;
         }
-        else if (tolower(move) == 'a' || tolower(move) == 'd'){
+        else if (tolower(playerMove) == 'a' || tolower(playerMove) == 'd'){
             break;
         }
+        else if (tolower(playerMove) == 'i'){
+            if (GetSizeOfInventory() == 0){
+                cout << "Your inventory is empty." << endl;
+            }
+            cout <<"\n";
+            cout << "What would you like to do?" << endl;
+            cout << "---------------------------------" << endl;
+            cout << "[W] Move up the road" << endl;
+            cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
+            cout << "[S] Move down the road" << endl;
+            cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
+            cout << "[I] View Inventory" << endl;
+            cout << "[V] View Votes" << endl;
+            cout << "[M] View Map" << endl;
+            cin >> playerMove;
+            }
+            else if (tolower(playerMove) == 'v'){
+                cout << "\n";
+                cout << "What would you like to do?" << endl;
+                cout << "---------------------------------" << endl;
+                cout << "[W] Move up the road" << endl;
+                cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
+                cout << "[S] Move down the road" << endl;
+                cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
+                cout << "[I] View Inventory" << endl;
+                cout << "[V] View Votes" << endl;
+                cout << "[M] View Map" << endl;
+                cin >> playerMove;
+            }
+            else if (tolower(playerMove) == 'm'){
+                cout << "What would you like to do?" << endl;
+                cout << "---------------------------------" << endl;
+                cout << "[W] Move up the road" << endl;
+                cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
+                cout << "[S] Move down the road" << endl;
+                cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
+                cout << "[I] View Inventory" << endl;
+                cout << "[V] View Votes" << endl;
+                cout << "[M] View Map" << endl;
+                cin >> playerMove;
+            }
+        }
     }
-}
+
 
 void Player::ViewHousesVisited(){
     vector<string> housesVisited;
     vector<string> housesNotVisited;
     const int HOUSES_PER_SECTION = 2;
-    for (int i = 0; i < road.size(); i++){
+    for (size_t i = 0; i < road.size(); i++){
         House* currSection = road.at(i);
-        for (int j = 0; j < HOUSES_PER_SECTION; i++){
+        for (size_t j = 0; j < HOUSES_PER_SECTION; i++){
             bool visitationStatus = currSection[j].GetVisitationStatus();
             string houseName = currSection[j].GetHouseName();
             if (visitationStatus){
@@ -227,7 +309,7 @@ void Player::ViewHousesVisited(){
     }
     cout << "Places visited:" << endl;
     cout << " -------------------" << endl;
-    for (int i = 0; i < housesVisited.size(); i++){
+    for (size_t i = 0; i < housesVisited.size(); i++){
        cout << housesVisited.at(i) << endl;
     }
 
@@ -235,7 +317,7 @@ void Player::ViewHousesVisited(){
 
     cout << "Places not yet visited:" << endl;
     cout << " -------------------" << endl;
-    for (int i = 0; i < housesNotVisited.size(); i++){
+    for (size_t i = 0; i < housesNotVisited.size(); i++){
        cout << housesNotVisited.at(i) << endl;
     }
 }

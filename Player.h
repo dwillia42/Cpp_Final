@@ -1,9 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "House.cpp"
+#include "House.h"
+#include <string>
+#include <map>
+#include <iostream>
 #include <vector>
+#include <algorithm>
+#include <limits>
 
+class GameData;
+
+using namespace std;
 class Player{
     private:
     vector<House*> road;
@@ -11,11 +19,12 @@ class Player{
     int votes;
     int roadLocation;
     House currHouse;
-    map<int, char> PlayerChar;
-    map<string, char> PersonChar;
+    vector<string> PlayerChar;
+    map<string, string> PersonChar;
     public:
     Player();
     void SetCurrentHouse(const House& house);
+    House GetCurrentHouse();
     void AddVote();
     void InitializeMap();
     void FillSection(const House& houseLeft, const House& houseRight, int sectionNum);

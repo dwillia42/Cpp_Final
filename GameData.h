@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <limits>
 #include <cctype>
-#include "Player.cpp"
+#include "Player.h"
 using namespace std;
 
 
@@ -37,6 +37,7 @@ class GameData{
     void CreateMap();
     void InitializeDialogue();
     vector<Person> GetPeople();
+    void SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap);
     House GetHouse(int i);
 };
 

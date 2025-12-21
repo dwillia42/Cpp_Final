@@ -47,14 +47,18 @@ int Person::GetAge(){
    return age;
 }
 
-void Person::SetDialogue(const map<string, DialogueState>& dialogueMap){
+void Person::SetDialogue(const map<string, DialogueState> dialogueMap){
     this->dialogueMap = dialogueMap;
+}
+
+map<string, DialogueState> Person::GetDialogue(){
+    return dialogueMap;
 }
 
  /*Idea to use a map from: ZyBooks: 14.4 
  How to use an iterator from ZyBooks: 14.2
  Implementation method had assitance from MathGPT*/
-void Person::Dialogue(GameData& game){
+string Person::Dialogue(GameData& game){
    //set the current key to the start key
     string currKey = "start";
 
@@ -158,7 +162,7 @@ void Person::Dialogue(GameData& game){
     }
 
     //Returns key so we can add/subtract points based on the final state of dialogue
-    //return currKey;
+    return currKey;
 }
 
 

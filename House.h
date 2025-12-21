@@ -2,7 +2,15 @@
 #define HOUSE_H
 
 #include <string>
-#include "Person.cpp"
+#include <map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <limits>
+#include "Person.h"
+
+class GameData;
+
 using namespace std;
 
 class House{

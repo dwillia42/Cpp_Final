@@ -1,6 +1,11 @@
 #include "House.h"
-#include <iostream>
+#include "GameData.h"
 #include <string>
+#include <map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <limits>
 using namespace std;
 
 House::House()

@@ -701,16 +701,16 @@ void GameData::InitializeDialogue(){
                 {}
             }}
         };
-        
-        GetPeople().at(0).SetDialogue(introDialogue);
-        GetPeople().at(0).SetDialogue(havidayDialogue);
-        GetPeople().at(0).SetDialogue(eriDialogue);
-        GetPeople().at(0).SetDialogue(joDialogue);
-        GetPeople().at(0).SetDialogue(clarkDialogue);
-        GetPeople().at(0).SetDialogue(verisDialogue);
-        GetPeople().at(0).SetDialogue(adiasDialogue);
-        GetPeople().at(0).SetDialogue(laiosDialogue);
-        
+
+        SetPersonDialogue(0, introDialogue);
+        SetPersonDialogue(1, havidayDialogue);
+        SetPersonDialogue(2, eriDialogue);
+        SetPersonDialogue(3, joDialogue);
+        SetPersonDialogue(4, clarkDialogue);
+        SetPersonDialogue(5, verisDialogue);
+        SetPersonDialogue(6, adiasDialogue);
+        SetPersonDialogue(7, laiosDialogue);
+
 }
 
 House GameData::GetHouse(int i){
@@ -719,4 +719,8 @@ House GameData::GetHouse(int i){
 
 vector<Person> GameData::GetPeople(){
     return people;
+}
+
+void GameData::SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap){
+        this->people.at(personIndex).SetDialogue(dialogueMap);
 }

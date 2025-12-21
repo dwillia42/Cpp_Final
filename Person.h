@@ -1,6 +1,13 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+#include <string>
+#include <map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <limits>
+
 class GameData;
 
 using namespace std;
@@ -30,8 +37,9 @@ class Person{
         string GetName() const;
         string GetGender() const;
         int GetAge();
-        void Dialogue(GameData& game);
-        void SetDialogue(const map<string, DialogueState>& dialogueMap);
+        string Dialogue(GameData& game);
+        map<string, DialogueState> GetDialogue();
+        void SetDialogue(const map<string, DialogueState> dialogueMap);
 
 
 };
