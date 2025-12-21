@@ -35,6 +35,9 @@ bool House::GetVisitationStatus(){
 string House::GetHouseName(){
     return HouseName;
 }
+Person House::GetPerson(){
+    return NPC;
+}
 
 void House::PrintInfo(){
     //Users choice to whether or not they want to see the NPC's description

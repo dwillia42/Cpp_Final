@@ -89,7 +89,9 @@ string Person::Dialogue(GameData& game){
         /*formats and prints out the text at the current stage of dialogue*/
         cout << "\n-----------\n";
         cout << currState.text << "\n";
-        cout << "-----------\n";
+        if (currKey != "choice_offer"){
+            cout << "-----------\n";
+        }
 
         /*if the player chooses to offer, then a list of things in the inventory
         will be shown, and the player will choose an item. If the inventory is empty,

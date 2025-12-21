@@ -24,6 +24,7 @@ class House{
     House(const Person& NPC, string houseName, string adress);
     void PrintInfo();
     string GetHouseName();
+    Person GetPerson();
     bool GetVisitationStatus();
     void WasVisited();
     

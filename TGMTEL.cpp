@@ -15,10 +15,10 @@ void StartGame(GameData& game){
     
     game.player.MovePrompt();
 
-    //House currentHouse = game.player.GetCurrentHouse();
+    House currentHouse;
 
     while(true){
-        House currentHouse = game.player.GetCurrentHouse();
+        currentHouse = game.player.GetCurrentHouse();
         if (currentHouse.GetHouseName() != "The Haviday House" && !game.GetHouse(1).GetVisitationStatus()){
             cout << "\n* Old Terry suggested you talk to his daughter first to the right of Town Hall."
                     "\n"
@@ -32,12 +32,18 @@ void StartGame(GameData& game){
             break;
         }
     }
-
+    currentHouse.PrintInfo();
     string lastKey = people.at(1).Dialogue(game);
 
     if (lastKey == "choice_leave"){
         game.player.VoteSecured("Noel Haviday");
         game.player.AddVote();
+    }
+
+    while(true){
+        game.player.MovePrompt();
+        currentHouse = game.player.GetCurrentHouse();
+        lastKey = currentHouse.GetPerson().Dialogue(game);
     }
 }
 
