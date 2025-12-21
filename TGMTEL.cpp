@@ -20,9 +20,9 @@ void StartGame(GameData& game){
     while(true){
         House currentHouse = game.player.GetCurrentHouse();
         if (currentHouse.GetHouseName() != "The Haviday House" && !game.GetHouse(1).GetVisitationStatus()){
-            cout << "\n* \"Old Terry suggested I talk to his daughter first.\""
+            cout << "\n* Old Terry suggested you talk to his daughter first to the right of Town Hall."
                     "\n"
-                    "\n* \"I'll go to this place after...\"" 
+                    "\n* You guess you could go to this place after..."
                     "\n"
                     "\n* You have left " << currentHouse.GetHouseName() << "."
                 << endl;

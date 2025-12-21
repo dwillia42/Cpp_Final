@@ -7,7 +7,9 @@
 #include <cctype>
 #include "Player.h"
 #include "GameData.h"
-#if defined(__CYGWIN32__) || defined(__CYGWIN32__) || defined(_WIN32)
+#if defined(__MINGW32__) || defined(__CYGWIN__) || defined(_WIN32)
+#define NOMINMAX
+#define _HAS_STD_BYTE_0
 #include <windows.h>
 #endif
 // https://stackoverflow.com/questions/41591846/ifdef-win32-not-getting-detected
@@ -63,7 +65,7 @@ void Player::AddToInventory(string item){
 
 string Player::ChooseFromInventory(){
     int itemNum;
-    cout << "Enter -1 if you dont want to choose any item." << endl;
+    cout << "\n* Enter -1 if you dont want to choose any item." << endl;
     cin >> itemNum;
     if (itemNum != -1){
         return inventory.at(itemNum - 1);
@@ -148,26 +150,25 @@ void Player::ViewCurrentLocation(){
 }
 
 void Player::MovePrompt(){
-    #ifdef windows.h
+    #if defined(_WIN32)
     SetConsoleOutputCP(CP_UTF8);
     #endif
     char playerMove;
     cout << "\n";
-    cout << "You are currently in section " << roadLocation << "." << endl;
-    cout << "---------------------------------" << endl;
+    cout << "* Section: " << roadLocation << "." << endl;
+    cout << "---------------------------------" << endl << endl;
     ViewMap();
-    cout << "---------------------------------" << endl;
-    cout << "To your left is " << road.at(roadLocation)[0].GetHouseName() << endl;
-    cout << "To your right is " << road.at(roadLocation)[1].GetHouseName() << endl;
-    cout << "What would you like to do?" << endl;
-    cout << "---------------------------------" << endl;
-    cout << "[W] Move up the road" << endl;
-    cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
-    cout << "[S] Move down the road" << endl;
-    cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
-    cout << "[I] View Inventory" << endl;
-    cout << "[V] View Votes" << endl;
-    cout << "[M] View Map" << endl;
+    cout << "---------------------------------" << endl << endl;
+    cout << "* Left is " << road.at(roadLocation)[0].GetHouseName() << endl << endl;
+    cout << "* Right is " << road.at(roadLocation)[1].GetHouseName() << endl << endl;
+    cout << "* Up and Down to walk on the road." << endl << endl;
+    cout << "* What would you like to do?" << endl << endl;
+    cout << "---------------------------------" << endl << endl;
+    cout << "   [W]" << endl;
+    cout << "[A][S][D]" << endl << endl;
+    cout << "[I] Inventory" << endl;
+    cout << "[V] Votes" << endl;
+    cout << "[M] Map" << endl;
 
     cin >> playerMove;
     while(true){
@@ -180,10 +181,13 @@ void Player::MovePrompt(){
             }
             else if(tolower(playerMove) != 'w' && tolower(playerMove) != 'a' && tolower(playerMove) != 's' && tolower(playerMove) != 'd' 
             && tolower(playerMove) != 'i' && tolower(playerMove) != 'v' && tolower(playerMove) != 'm'){ 
-                cout << "Input must be an from the given choice options:" << endl;
+                cout << "Input must be an from the given choice options:" << endl << endl;
                 cout << "   [W]" << endl;
                 cout << "[A][S][D]" << endl << endl;
-                cout << "[I][V][M]" << endl;
+                cout << "[I] Inventory" << endl;
+                cout << "[V] Votes" << endl;
+                cout << "[M] Map" << endl;
+                cout << "/n> ";
                 cin >> playerMove;
             }
             else{
@@ -235,15 +239,16 @@ void Player::MovePrompt(){
         if (tolower(playerMove) == 'w' || tolower(playerMove) == 's'){
             cout << "You aren't currently at any buidling." << endl;
             cout <<"\n";
-            cout << "What would you like to do?" << endl;
-            cout << "---------------------------------" << endl;
-            cout << "[W] Move up the road" << endl;
-            cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
-            cout << "[S] Move down the road" << endl;
-            cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
-            cout << "[I] View Inventory" << endl;
-            cout << "[V] View Votes" << endl;
-            cout << "[M] View Map" << endl;
+            cout << "* Left is " << road.at(roadLocation)[0].GetHouseName() << endl << endl;
+            cout << "* Right is " << road.at(roadLocation)[1].GetHouseName() << endl << endl;
+            cout << "What would you like to do?" << endl << endl;
+            cout << "---------------------------------" << endl << endl;
+            cout << "   [W]" << endl;
+            cout << "[A][S][D]" << endl << endl;
+            cout << "[I] Inventory" << endl;
+            cout << "[V] Votes" << endl;
+            cout << "[M] Map" << endl;
+            cout << "/n> ";
             cin >> playerMove;
         }
         else if (tolower(playerMove) == 'a' || tolower(playerMove) == 'd'){
@@ -251,43 +256,40 @@ void Player::MovePrompt(){
         }
         else if (tolower(playerMove) == 'i'){
             if (GetSizeOfInventory() == 0){
-                cout << "Your inventory is empty." << endl;
+                cout << "* Your inventory is empty." << endl;
             }
             cout <<"\n";
             cout << "What would you like to do?" << endl;
-            cout << "---------------------------------" << endl;
-            cout << "[W] Move up the road" << endl;
-            cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
-            cout << "[S] Move down the road" << endl;
-            cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
-            cout << "[I] View Inventory" << endl;
-            cout << "[V] View Votes" << endl;
-            cout << "[M] View Map" << endl;
+            cout << "\n---------------------------------" << endl << endl;
+            cout << "   [W]" << endl;
+            cout << "[A][S][D]" << endl << endl;
+            cout << "[I] Inventory" << endl;
+            cout << "[V] Votes" << endl;
+            cout << "[M] Map" << endl;
+            cout << "/n> ";
             cin >> playerMove;
             }
             else if (tolower(playerMove) == 'v'){
                 cout << "\n";
-                cout << "What would you like to do?" << endl;
-                cout << "---------------------------------" << endl;
-                cout << "[W] Move up the road" << endl;
-                cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
-                cout << "[S] Move down the road" << endl;
-                cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
-                cout << "[I] View Inventory" << endl;
-                cout << "[V] View Votes" << endl;
-                cout << "[M] View Map" << endl;
+                cout << "\nWhat would you like to do?" << endl;
+                cout << "\n---------------------------------" << endl << endl;
+                cout << "   [W]" << endl;
+                cout << "[A][S][D]" << endl << endl;
+                cout << "[I] Inventory" << endl;
+                cout << "[V] Votes" << endl;
+                cout << "[M] Map" << endl;
+                cout << "/n> ";
                 cin >> playerMove;
             }
             else if (tolower(playerMove) == 'm'){
-                cout << "What would you like to do?" << endl;
-                cout << "---------------------------------" << endl;
-                cout << "[W] Move up the road" << endl;
-                cout << "[A] Move toward the left towards " << road.at(roadLocation)[0].GetHouseName() << endl;
-                cout << "[S] Move down the road" << endl;
-                cout << "[D] Move to the right towards " << road.at(roadLocation)[1].GetHouseName() << endl;
-                cout << "[I] View Inventory" << endl;
-                cout << "[V] View Votes" << endl;
-                cout << "[M] View Map" << endl;
+                cout << "\n\nWhat would you like to do?" << endl;
+                cout << "\n---------------------------------" << endl << endl;
+                cout << "   [W]" << endl;
+                cout << "[A][S][D]" << endl << endl;
+                cout << "[I] Inventory" << endl;
+                cout << "[V] Votes" << endl;
+                cout << "[M] Map" << endl;
+                cout << "/n> ";
                 cin >> playerMove;
             }
         }

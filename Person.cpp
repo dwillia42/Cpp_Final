@@ -132,6 +132,7 @@ string Person::Dialogue(GameData& game){
 
         //initializes and reads user input
         size_t choice_index = -1;
+        cout << "/n> ";
         cin >> choice_index;
 
         /*Revised Input Validation (wrong data type validation from:GeeksForGeeks)
@@ -143,6 +144,7 @@ string Person::Dialogue(GameData& game){
                     cout << "Expected an integer input. Please try again." << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "/n> ";
                     cin >> choice_index;
                 }
                 else if (choice_index < 1 || choice_index > currState.choices.size()){
@@ -150,6 +152,7 @@ string Person::Dialogue(GameData& game){
                     for (size_t i = 0; i < currState.choices.size(); i++){
                         cout << "[" << (i + 1) << "] " << currState.choices.at(i).choice << endl;    
                     }
+                    cout << "/n> ";
                     cin >> choice_index;
                 }
             }
