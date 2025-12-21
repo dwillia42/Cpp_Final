@@ -41,6 +41,7 @@ void GameData::InitializeDialogue(){
 
             {"choice_inquire",{
                 "* You ask Old Terry for exactly what this journey ENTAILS."
+                "\n"
                 "\n* \"This means confirming VOTEs Player!\""
                 "\n"
                 "\n* \"How do you get VOTEs? Easy! Just go house-to-house and talk to people with"

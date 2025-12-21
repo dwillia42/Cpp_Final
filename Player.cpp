@@ -5,10 +5,12 @@
 #include <algorithm>
 #include <limits>
 #include <cctype>
-#include <windows.h>
-
 #include "Player.h"
 #include "GameData.h"
+#if defined(__CYGWIN32__) || defined(__CYGWIN32__) || defined(_WIN32)
+#include <windows.h>
+#endif
+// https://stackoverflow.com/questions/41591846/ifdef-win32-not-getting-detected
 
 using namespace std;
 
@@ -146,7 +148,9 @@ void Player::ViewCurrentLocation(){
 }
 
 void Player::MovePrompt(){
+    #ifdef windows.h
     SetConsoleOutputCP(CP_UTF8);
+    #endif
     char playerMove;
     cout << "\n";
     cout << "You are currently in section " << roadLocation << "." << endl;
