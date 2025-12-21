@@ -7,9 +7,9 @@
 #include <cctype>
 #include "Player.h"
 #include "GameData.h"
-#if defined(__MINGW32__) || defined(__CYGWIN__) || defined(_WIN32)
-#define NOMINMAX
-#define _HAS_STD_BYTE_0
+#if defined(__CYGWIN__) || defined(_WIN32)
+#define  NOMINMAX 
+#define  _HAS_STD_BYTE 0
 #include <windows.h>
 #endif
 // https://stackoverflow.com/questions/41591846/ifdef-win32-not-getting-detected
@@ -187,7 +187,7 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
-                cout << "/n> ";
+                cout << "\n> ";
                 cin >> playerMove;
             }
             else{
@@ -199,25 +199,25 @@ void Player::MovePrompt(){
             case 'w':
                 roadLocation--;
                 cout << "\n";
-                cout << "You are now in section " << roadLocation << "." << endl;
+                cout << "* You are now in section " << roadLocation << "." << endl;
                 SetPlayerChar(playerMove);
                 break;
             case 's':
                 roadLocation++;
                 cout << "\n";
-                cout << "You are now in section " << roadLocation << "." << endl;
+                cout << "* You are now in section " << roadLocation << "." << endl;
                 SetPlayerChar(playerMove);
                 break;
             case 'a':
                 currHouse = road.at(roadLocation)[0];
                 cout << "\n";
-                cout << "You are now at " << currHouse.GetHouseName() << endl;
+                cout << "* You are now at " << currHouse.GetHouseName() << endl;
                 currHouse.WasVisited();
                 break;
             case 'd':
                 currHouse = road.at(roadLocation)[1];
                 cout << "\n";
-                cout << "You are now at " << currHouse.GetHouseName() << endl;
+                cout << "* You are now at " << currHouse.GetHouseName() << endl;
                 currHouse.WasVisited();
                 break;
             case 'i':
@@ -248,7 +248,7 @@ void Player::MovePrompt(){
             cout << "[I] Inventory" << endl;
             cout << "[V] Votes" << endl;
             cout << "[M] Map" << endl;
-            cout << "/n> ";
+            cout << "\n> ";
             cin >> playerMove;
         }
         else if (tolower(playerMove) == 'a' || tolower(playerMove) == 'd'){
@@ -266,7 +266,7 @@ void Player::MovePrompt(){
             cout << "[I] Inventory" << endl;
             cout << "[V] Votes" << endl;
             cout << "[M] Map" << endl;
-            cout << "/n> ";
+            cout << "\n> ";
             cin >> playerMove;
             }
             else if (tolower(playerMove) == 'v'){
@@ -278,7 +278,7 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
-                cout << "/n> ";
+                cout << "\n> ";
                 cin >> playerMove;
             }
             else if (tolower(playerMove) == 'm'){
@@ -289,7 +289,7 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
-                cout << "/n> ";
+                cout << "\n> ";
                 cin >> playerMove;
             }
         }

@@ -47,7 +47,7 @@ int main(){
     game.InitializeDialogue();
     StartGame(game);
 
-    cout << "Press Enter to exit..." << endl;
+    cout << "\n* Press Enter to exit..." << endl;
     cin.ignore();
     cin.get();
     return 0;
