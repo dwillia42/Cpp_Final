@@ -37,7 +37,7 @@ class GameData{
     void CreateMap();
     void InitializeDialogue();
     void InitializeCharacterDescriptions();
-    vector<Person> GetPeople();
+    vector<Person>& GetPeople();
     void SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap);
     House GetHouse(int i);
 };

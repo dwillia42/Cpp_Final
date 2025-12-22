@@ -67,6 +67,18 @@ void Player::AddToInventory(string item){
     inventory.push_back(item);
 }
 
+void Player::RemoveFromInventory(string item){
+    int itemIndex = 0;
+    for (size_t i = 0; i < inventory.size(); i++){
+        if (inventory.at(i) == item){
+            itemIndex = i;
+            break;
+        }
+    }
+
+    inventory.erase(inventory.begin() + itemIndex);
+}
+
 string Player::ChooseFromInventory(){
     int itemNum;
     cout << "\n* Enter -1 if you dont want to choose any item." << endl;
@@ -150,9 +162,6 @@ void Player::ViewMap(){
     
 }
 
-void Player::ViewCurrentLocation(){
-    currHouse.PrintInfo();
-}
 
 void Player::MovePrompt(){
     #if defined(_WIN32)
@@ -174,6 +183,7 @@ void Player::MovePrompt(){
     cout << "[I] Inventory" << endl;
     cout << "[V] Votes" << endl;
     cout << "[M] Map" << endl;
+    cout << "[H] Houses Visited" << endl;
     cout << "\n> ";
 
     cin >> playerMove;
@@ -186,13 +196,14 @@ void Player::MovePrompt(){
                 cin >> playerMove;
             }
             else if(tolower(playerMove) != 'w' && tolower(playerMove) != 'a' && tolower(playerMove) != 's' && tolower(playerMove) != 'd' 
-            && tolower(playerMove) != 'i' && tolower(playerMove) != 'v' && tolower(playerMove) != 'm'){ 
+            && tolower(playerMove) != 'i' && tolower(playerMove) != 'v' && tolower(playerMove) != 'm' && tolower(playerMove) != 'h'){ 
                 cout << "Input must be an from the given choice options:" << endl << endl;
                 cout << "   [W]" << endl;
                 cout << "[A][S][D]" << endl << endl;
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
+                cout << "[H] Houses Visited" << endl;
                 cout << "\n> ";
                 cin >> playerMove;
             }
@@ -203,17 +214,30 @@ void Player::MovePrompt(){
 
         switch (tolower(playerMove)){
             case 'w':
-                roadLocation--;
-                cout << "\n";
-                cout << "* You are now in section " << roadLocation << "." << endl;
-                SetPlayerChar(playerMove);
-                break;
+                if (roadLocation == 0){
+                    cout << "Going this far is out of town limits." << endl;
+                    break;
+                }
+                else{
+                    roadLocation--;
+                    cout << "\n";
+                    cout << "* You are now in section " << roadLocation << "." << endl;
+                    SetPlayerChar(playerMove);
+                    break;
+                }
+                
             case 's':
-                roadLocation++;
-                cout << "\n";
-                cout << "* You are now in section " << roadLocation << "." << endl;
-                SetPlayerChar(playerMove);
-                break;
+                if(roadLocation == 3){
+                    cout << "Going this far is out of town limits." << endl;
+                    break;
+                }
+                else{
+                    roadLocation++;
+                    cout << "\n";
+                    cout << "* You are now in section " << roadLocation << "." << endl;
+                    SetPlayerChar(playerMove);
+                    break;
+                }
             case 'a':
                 currHouse = road.at(roadLocation)[0];
                 cout << "\n";
@@ -240,6 +264,9 @@ void Player::MovePrompt(){
                 ViewMap();
                 cout << "---------------------------------" << endl;
                 break;
+            case 'h':
+                ViewHousesVisited();
+                break;
         }
 
         if (tolower(playerMove) == 'w' || tolower(playerMove) == 's'){
@@ -254,6 +281,7 @@ void Player::MovePrompt(){
             cout << "[I] Inventory" << endl;
             cout << "[V] Votes" << endl;
             cout << "[M] Map" << endl;
+            cout << "[H] Houses Visited" << endl;
             cout << "\n> ";
             cin >> playerMove;
         }
@@ -272,6 +300,7 @@ void Player::MovePrompt(){
             cout << "[I] Inventory" << endl;
             cout << "[V] Votes" << endl;
             cout << "[M] Map" << endl;
+            cout << "[H] Houses Visited" << endl;
             cout << "\n> ";
             cin >> playerMove;
             }
@@ -284,6 +313,7 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
+                cout << "[H] Houses Visited" << endl;
                 cout << "\n> ";
                 cin >> playerMove;
             }
@@ -295,6 +325,19 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
+                cout << "[H] Houses Visited" << endl;
+                cout << "\n> ";
+                cin >> playerMove;
+            }
+            else if (tolower(playerMove) == 'h'){
+                cout << "\n\nWhat would you like to do?" << endl;
+                cout << "\n---------------------------------" << endl << endl;
+                cout << "   [W]" << endl;
+                cout << "[A][S][D]" << endl << endl;
+                cout << "[I] Inventory" << endl;
+                cout << "[V] Votes" << endl;
+                cout << "[M] Map" << endl;
+                cout << "[H] Houses Visited" << endl;
                 cout << "\n> ";
                 cin >> playerMove;
             }
@@ -308,7 +351,7 @@ void Player::ViewHousesVisited(){
     const int HOUSES_PER_SECTION = 2;
     for (size_t i = 0; i < road.size(); i++){
         House* currSection = road.at(i);
-        for (size_t j = 0; j < HOUSES_PER_SECTION; i++){
+        for (size_t j = 0; j < HOUSES_PER_SECTION; j++){
             bool visitationStatus = currSection[j].GetVisitationStatus();
             string houseName = currSection[j].GetHouseName();
             if (visitationStatus){

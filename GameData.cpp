@@ -16,6 +16,8 @@ void GameData::CreateMap(){
     player.FillSection(houses.at(2), houses.at(3), 1);
     player.FillSection(houses.at(4), houses.at(5), 2);
     player.FillSection(houses.at(6), houses.at(7), 3);
+
+
 }
 
 void GameData::InitializeDialogue(){       
@@ -795,7 +797,7 @@ House GameData::GetHouse(int i){
     return houses.at(i);
 }
 
-vector<Person> GameData::GetPeople(){
+vector<Person>& GameData::GetPeople(){
     return people;
 }
 
@@ -809,7 +811,7 @@ void GameData::InitializeCharacterDescriptions(){
     string havidayDesc = "The " + to_string(GetPeople().at(1).GetAge()) + "-year-old daughter of the Havidays."
                          "\nOften hanging out with the neighborhood kid her age.";
     string eriDesc = "Maid working to tend the Adias home."
-                     "\nis thinking about moving out.";
+                     "\nIs thinking about moving out.";
     string joDesc = "Has previously tried to be mayor."
                     "\nHe's usually home making videos.";
     string clarkDesc = "Old Terry's friend from way back."
@@ -829,5 +831,6 @@ void GameData::InitializeCharacterDescriptions(){
     this->people.at(5).SetDesc(verisDesc);
     this->people.at(6).SetDesc(adiasDesc);
     this->people.at(7).SetDesc(laiosDesc);
+
 
 }

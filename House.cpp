@@ -16,9 +16,9 @@ House::House()
     this->isVisited = false;
 }
 
-House::House(const Person& NPC, string HouseName, string address) 
-: NPC(NPC)
+House::House(Person& NPC, string HouseName, string address) 
 {
+    this->NPC = &NPC;
     this->HouseName = HouseName;
     this->address = address;
     this->isVisited = false;
@@ -36,7 +36,7 @@ string House::GetHouseName(){
     return HouseName;
 }
 Person House::GetPerson(){
-    return NPC;
+    return *NPC;
 }
 
 void House::PrintInfo(){
@@ -47,7 +47,7 @@ void House::PrintInfo(){
     //Ask the user if they want to see the NPC's description
     cout << "\n* The address of this house is: " << address << endl;
     cout << '\n';
-    cout << "Would you like to view a description of " << NPC.GetName() << "?" << endl;
+    cout << "Would you like to view a description of " << NPC->GetName() << "?" << endl;
     cout << "[" << 1 << "]" << " Yes" << endl;
     cout << "[" << 2 << "]" << " No" << endl;
     cout << "\n> ";
@@ -76,7 +76,8 @@ void House::PrintInfo(){
 
     //If the player's choice was yes ([1]), then the description is printed.
     if (ans == 1){
-        NPC.PrintDesc();
+        cout << "\n";
+        NPC->PrintDesc();
         cout << "\n* Press Enter to continue..." << endl;
         cout << "\n> ";
         cin.ignore();

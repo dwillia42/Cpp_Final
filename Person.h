@@ -40,7 +40,7 @@ class Person{
         int GetAge();
         vector<string> Dialogue(GameData& game);
         map<string, DialogueState> GetDialogue();
-        void SetDialogue(const map<string, DialogueState> dialogueMap);
+        void SetDialogue(map<string, DialogueState> dialogueMap);
         void HasVoted();
         bool VoteStatus();
 

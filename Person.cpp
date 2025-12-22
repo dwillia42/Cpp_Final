@@ -25,7 +25,7 @@ Person::Person(string name, int age, string gender){
 }
 
 void Person::SetDesc(string description){
-    this->description;
+    this->description = description;
 }
 
 void Person::PrintDesc(){

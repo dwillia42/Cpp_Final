@@ -15,13 +15,13 @@ using namespace std;
 
 class House{
     private:
-        Person NPC;
+        Person* NPC;
         string HouseName;
         string address;
         bool isVisited;
     public:
     House();
-    House(const Person& NPC, string houseName, string adress);
+    House(Person& NPC, string houseName, string adress);
     void PrintInfo();
     string GetHouseName();
     Person GetPerson();

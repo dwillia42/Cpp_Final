@@ -41,6 +41,7 @@ void StartGame(GameData& game){
     if (lastKey.at(lastIndex) == "choice_leave"){
         game.player.VoteSecured("Noel Haviday");
         game.player.AddVote();
+        people.at(1).HasVoted();
     }
 
     while(true){
@@ -49,33 +50,37 @@ void StartGame(GameData& game){
         currentHouse.PrintInfo();
         if (currentHouse.GetHouseName() == "The Adias House"){
             if (people.at(2).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n";
             }
             else{
                 lastKey = people.at(2).Dialogue(game);
                 if(lastKey.at(prevIndex) == "choice_compliment"){
                     game.player.VoteSecured("Eri Jinnsen");
                     game.player.AddVote();
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(2).HasVoted();
                 }
             }
         }
         else if (currentHouse.GetHouseName() == "The Jo House"){
             if(people.at(3).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n";
             }
             else{
                 lastKey = people.at(3).Dialogue(game);
                 if(lastKey.at(prevIndex) == "choice_chase"){
                     game.player.VoteSecured("Jorimiah Jo");
                     game.player.AddVote();
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(3).HasVoted();
+                    game.player.RemoveFromInventory("Quiz Paper");
                 }
             }
         }
         else if (currentHouse.GetHouseName() == "The Library"){
             if(people.at(4).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n";
             }
             else{
                 lastKey = people.at(4).Dialogue(game);
@@ -83,26 +88,28 @@ void StartGame(GameData& game){
                     game.player.VoteSecured("Clark Woodpecker");
                     game.player.AddVote();
                     game.player.AddToInventory("Quiz Paper");
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(4).HasVoted();
                 }
             }
         }
         else if (currentHouse.GetHouseName() == "The Serket House"){
             if(people.at(5).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n";
             }
             else{
                lastKey = people.at(5).Dialogue(game);
                 if(lastKey.at(prevIndex) == "veris_Win" || lastKey.at(prevIndex) == "player_Win") {
                     game.player.VoteSecured("Veris Serket");
                     game.player.AddVote();
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(5).HasVoted();
                 } 
             }  
         }
         else if (currentHouse.GetHouseName() == "The Baram House"){
             if (people.at(6).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n";
             }
             else{
                 lastKey = people.at(6).Dialogue(game);
@@ -110,22 +117,28 @@ void StartGame(GameData& game){
                     game.player.VoteSecured("Dr. Adias");
                     game.player.AddVote();
                     game.player.AddToInventory("Health Curriculum");
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(6).HasVoted();
                 }
             }  
         }
         else if (currentHouse.GetHouseName() == "The School"){
             if(people.at(7).VoteStatus()){
                 cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "\n";
             }
             else{
                 lastKey = people.at(7).Dialogue(game);
                 if (lastKey.at(prevIndex) == "Health Curriculum_choice"){
                     game.player.VoteSecured("Laios Vangrad");
                     game.player.AddVote();
-                    currentHouse.GetPerson().HasVoted();
+                    people.at(7).HasVoted();
+                    game.player.RemoveFromInventory("Health Curriculum");
                 }
             }
+        }
+        else if (currentHouse.GetHouseName() == "The Haviday House"){
+            cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+            cout << "\n";
         }
         
         if(game.player.GetVotes() == 7){

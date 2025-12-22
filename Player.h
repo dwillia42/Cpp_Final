@@ -29,11 +29,11 @@ class Player{
     void InitializeMap();
     void FillSection(const House& houseLeft, const House& houseRight, int sectionNum);
     void FreeMap();
-    void ViewCurrentLocation();
     void ViewVotes();
     void ViewMap();
     void ViewInventory();
     void AddToInventory(string item);
+    void RemoveFromInventory(string item);
     vector<string> GetInventory();
     int GetSizeOfInventory();
     string ChooseFromInventory();
