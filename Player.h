@@ -38,7 +38,6 @@ class Player{
     int GetSizeOfInventory();
     string ChooseFromInventory();
     void MovePrompt();
-    void ViewHousesVisited();
     void SetPlayerChar(char move);
     void VoteSecured(string name);
     int GetVotes();

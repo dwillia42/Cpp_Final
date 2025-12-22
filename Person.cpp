@@ -98,9 +98,9 @@ vector<string> Person::Dialogue(GameData& game){
         const DialogueState& currState = iter->second;
 
         /*formats and prints out the text at the current stage of dialogue*/
-        cout << "\n-----------\n";
+        cout << "\n-----------\n\n";
         cout << currState.text << "\n";
-        cout << "\n-----------\n";
+        cout << "\n-----------\n\n";
 
         /*if the player chooses to offer, then a list of things in the inventory
         will be shown, and the player will choose an item. If the inventory is empty,
@@ -136,7 +136,7 @@ vector<string> Person::Dialogue(GameData& game){
         */
 
         if (currState.choices.empty()){
-            cout << "\n--- Dialogue Ended ---" << endl;\
+            cout << "\n--- Dialogue Ended ---\n" << endl;
             break;
         }
 
@@ -157,7 +157,7 @@ vector<string> Person::Dialogue(GameData& game){
         while(true){
             if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
                 if (cin.fail()){
-                    cout << "\n* Expected an integer input. Please try again." << endl;
+                    cout << "\n* Expected an integer input. Please try again." << endl << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "\n> ";

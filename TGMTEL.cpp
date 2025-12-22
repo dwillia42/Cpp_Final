@@ -50,8 +50,7 @@ void StartGame(GameData& game){
         currentHouse.PrintInfo();
         if (currentHouse.GetHouseName() == "The Adias House"){
             if (people.at(2).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
-                cout << "\n";
+                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             }
             else{
                 lastKey = people.at(2).Dialogue(game);
@@ -106,7 +105,7 @@ void StartGame(GameData& game){
                 } 
             }  
         }
-        else if (currentHouse.GetHouseName() == "The Baram House"){
+        else if (currentHouse.GetHouseName() == "The Clinic"){
             if (people.at(6).VoteStatus()){
                 cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
                 cout << "\n";
@@ -140,11 +139,21 @@ void StartGame(GameData& game){
             cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             cout << "\n";
         }
+        else if (currentHouse.GetHouseName() == "Town Hall"){
+            if (game.player.GetVotes() == 7){
+                game.GetPeople().at(0).Dialogue(game);
+                break;
+            }
+            else{
+                cout << "* You try to go to Town Hall, but"
+                        "\ndon\'t have enough votes..." << endl;
+            }
+        }
         
         if(game.player.GetVotes() == 7){
             cout << "Congratulations! You now have everyones vote." << endl;
             cout << "\nGo Back to Town Hall to talk to Old Terry." << endl;
-            break;
+            game.SetEndingDialogue();
         }
     }
 }

@@ -101,13 +101,15 @@ string startTicTacToe() {
     
     //veris too important to go second, also it'd be too easy if player went middle first
     
+    cout << "* \"Well, I'm going first, obviously.\"" << endl << endl;
+    
     printBoard(minigameBoard, rounds);
     
     while (WinCheck(minigameBoard, playerLetter, playerWin) == false && rounds < 9) {
         cout << "* Type row, then column (separated by a space):" << endl << endl << "> ";
         cin >> x >> y;
         if (cin.fail()) {
-            cout << endl << "* Invalid input! Expected an integer." << endl << endl;
+            cout << endl << "* \"Hey, no cheating, if I'm not allowed to!\"" << endl << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -117,10 +119,10 @@ string startTicTacToe() {
             continue;
         }
         markBoard(minigameBoard, x-1, y-1, playerLetter);
+        cout << endl << "Player's move:" << endl;
         printBoard(minigameBoard, rounds);
         if (WinCheck(minigameBoard, playerLetter, playerWin) == false) {
             EnemyTurn(minigameBoard, enemyLetter);
-            cout << endl << "- - - - -" << endl;
             printBoard(minigameBoard, rounds);
         }
     }

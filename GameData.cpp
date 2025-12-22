@@ -76,6 +76,7 @@ void GameData::InitializeDialogue(){
         map<string, DialogueState> havidayDialogue = {
             {"start", {
                 "* You knock on The Haviday House door."
+                "\n"
                 "\n* A child looks through the window before slowly opening the door. The both of"
                 "\nyou awkwardly waited for a few seconds before the child spoke up first."
                 "\n"
@@ -87,7 +88,7 @@ void GameData::InitializeDialogue(){
                 "\n* \"Oh ok. Th-then nice to see you, I guess? You should try an act, wait it\'s"
                 "\nactually called ACT, right?\"",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
 
             }},
@@ -143,17 +144,17 @@ void GameData::InitializeDialogue(){
                 "\nseems like a tired maid."
                 "\n"
                 "\n* \"Greetings... this is The Adias Have... Do you have a message you\'d like me "
-                "\nto giv- Oh wait you\'re Player, that MAYOR candidate. You can\'t see the Adias\',"
-                "\n right now. I\'m Eri Jinnsen, their maid.\"",
+                "\nto giv- Oh wait you\'re Player, that MAYOR candidate. You can\'t see the Adias\', "
+                "\nright now. I\'m Eri Jinnsen, their maid.\"",
     
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
             {"choice_tryAgain", {
                 "* You decide to give convincing Eri Jinnsen another try...",
                 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
 
             }},
@@ -198,14 +199,14 @@ void GameData::InitializeDialogue(){
             {"Quiz Paper_choice", {
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
             {"Health Curriculum_choice",{
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
@@ -226,14 +227,14 @@ void GameData::InitializeDialogue(){
                 "\nyou know I\'m not voting for an uncultured nobody to be MAYOR. Got "
                 "\nsomething to say about that?\"",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
             {"choice_tryAgain", {
                 "* You decide to give convincing Jorimiah Jo another try...",
                 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
 
             }},
@@ -277,7 +278,7 @@ void GameData::InitializeDialogue(){
             {"Health Curriculum_choice",{
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
@@ -501,15 +502,15 @@ void GameData::InitializeDialogue(){
                 "\nyou hurry this up?\"",
 
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
-                {"Challenge.","choice_challenge"}}
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
+                {"Challenge!","start_Minigame"}}
             }},
 
             {"choice_tryAgain", {
                 "* You decide to give convincing Veris Serket another try...",
                 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
-                {"Challenge.","choice_challenge"}}
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
+                {"Challenge!","start_Minigame"}}
 
             }},
 
@@ -524,18 +525,12 @@ void GameData::InitializeDialogue(){
                 {{"Try again.", "choice_tryAgain"}, {"Leave.","choice_leave"}}
             }},
 
-            {"choice_challenge", {
+            {"start_Minigame", {
                 "* You asked Veris if she\'d be up for a game of TIC-TAC-TOE, and the winner was "
                 "\nwas obviously the better leader."
                 "\n"
                 "\n* \"Huh? What does that have to do with leading? Wait, where do you think "
                 "\nyou\'re going, we\'re gonna play this game and I\'m gonna win.\"",
-
-                {{"Start game.", "start_Minigame"}}
-            }},
-
-            {"start_Minigame", {
-                "",
 
                 {}
             }},
@@ -581,15 +576,15 @@ void GameData::InitializeDialogue(){
             {"Quiz Paper_choice", {
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
-                {"Challenge.","choice_challenge"}}
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
+                {"Challenge!","start_Minigame"}}
             }},
 
             {"Health Curriculum_choice",{
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
-                {"Challenge.","choice_challenge"}}
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
+                {"Challenge!","start_Minigame"}}
             }},
 
             {"choice_leave", {
@@ -654,7 +649,7 @@ void GameData::InitializeDialogue(){
                 "\nbetter. Got anything you wanna say?\"",
 
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
 
             }},
@@ -662,7 +657,7 @@ void GameData::InitializeDialogue(){
             {"choice_tryAgain", {
                 "* You decide to give convincing Laios Vangrad another try...",
                 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
 
             }},
@@ -722,7 +717,7 @@ void GameData::InitializeDialogue(){
             {"Quiz Paper_choice",{
                 "* You feel that you need to save this item for someone else.",
 
-                {{"Compliment.", "choice_compliment"}, {"Offer. (" + to_string(player.GetSizeOfInventory()) + " item(s))", "choice_offer"},
+                {{"Compliment.", "choice_compliment"}, {"Offer.", "choice_offer"},
                 {"Challenge.","choice_challenge"}}
             }},
 
@@ -733,7 +728,24 @@ void GameData::InitializeDialogue(){
             }}
         };
 
-        map<string, DialogueState> exitDialogue = {
+
+        SetPersonDialogue(0, introDialogue);
+        SetPersonDialogue(1, havidayDialogue);
+        SetPersonDialogue(2, eriDialogue);
+        SetPersonDialogue(3, joDialogue);
+        SetPersonDialogue(4, clarkDialogue);
+        SetPersonDialogue(5, verisDialogue);
+        SetPersonDialogue(6, adiasDialogue);
+        SetPersonDialogue(7, laiosDialogue);
+
+}
+
+House GameData::GetHouse(int i){
+    return houses.at(i);
+}
+
+void GameData::SetEndingDialogue(){
+    map<string, DialogueState> exitDialogue = {
             {"start", {
                 "* Your journey is nearly over, you\'ve talked to all those people and maybe "
                 "\n"
@@ -782,19 +794,7 @@ void GameData::InitializeDialogue(){
             }}
         };
 
-        SetPersonDialogue(0, introDialogue);
-        SetPersonDialogue(1, havidayDialogue);
-        SetPersonDialogue(2, eriDialogue);
-        SetPersonDialogue(3, joDialogue);
-        SetPersonDialogue(4, clarkDialogue);
-        SetPersonDialogue(5, verisDialogue);
-        SetPersonDialogue(6, adiasDialogue);
-        SetPersonDialogue(7, laiosDialogue);
-
-}
-
-House GameData::GetHouse(int i){
-    return houses.at(i);
+        SetPersonDialogue(0,exitDialogue);
 }
 
 vector<Person>& GameData::GetPeople(){
@@ -834,3 +834,5 @@ void GameData::InitializeCharacterDescriptions(){
 
 
 }
+
+

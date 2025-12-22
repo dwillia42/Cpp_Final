@@ -23,13 +23,13 @@ class GameData{
                             Person("Dr. Adias", 35, "male"),
                             Person("Laios Vangrad", 48, "male")};
 
-    vector<House> houses = {House(people.at(0),"Town Hall", "00 West Mayor Street"),
+    vector<House> houses = {House(people.at(0), "Town Hall", "00 West Mayor Street"),
                             House(people.at(1), "The Haviday House", "02 East Mayor Street"),
                             House(people.at(2), "The Adias House", "10 West Mayor Steet"),
                             House(people.at(3), "The Jo House", "12 East Mayor Street"),
                             House(people.at(4), "The Library", "20 West Mayor Street"),
                             House(people.at(5), "The Serket House", "22 East Mayor Street"),
-                            House(people.at(6), "The Baram House", "30 West Mayor Street"),
+                            House(people.at(6), "The Clinic", "30 West Mayor Street"),
                             House(people.at(7), "The School", "32 East Mayor Street")};
     public:
     //Function that creates map
@@ -40,6 +40,7 @@ class GameData{
     vector<Person>& GetPeople();
     void SetPersonDialogue(int personIndex, map<string, DialogueState> dialogueMap);
     House GetHouse(int i);
+    void SetEndingDialogue();
 };
 
 #endif
