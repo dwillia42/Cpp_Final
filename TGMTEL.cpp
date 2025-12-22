@@ -49,7 +49,7 @@ void StartGame(GameData& game){
         currentHouse.PrintInfo();
         if (currentHouse.GetHouseName() == "The Adias House"){
             if (people.at(2).VoteStatus()){
-                cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             }
             else{
                 lastKey = people.at(2).Dialogue(game);
@@ -100,7 +100,7 @@ void StartGame(GameData& game){
                 } 
             }  
         }
-        else if (currentHouse.GetHouseName() == "The Baram House"){
+        else if (currentHouse.GetHouseName() == "The Clinic"){
             if (people.at(6).VoteStatus()){
                 cout << "You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             }

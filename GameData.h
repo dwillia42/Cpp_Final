@@ -29,7 +29,7 @@ class GameData{
                             House(people.at(3), "The Jo House", "12 East Mayor Street"),
                             House(people.at(4), "The Library", "20 West Mayor Street"),
                             House(people.at(5), "The Serket House", "22 East Mayor Street"),
-                            House(people.at(6), "The Baram House", "30 West Mayor Street"),
+                            House(people.at(6), "The Clinic", "30 West Mayor Street"),
                             House(people.at(7), "The School", "32 East Mayor Street")};
     public:
     //Function that creates map

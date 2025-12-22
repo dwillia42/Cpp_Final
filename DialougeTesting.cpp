@@ -31,7 +31,7 @@ int main(){
             "\n* Someone looks through the windows and opens the door slightly"
             "\n* \"Hi, I\'m Noel Haviday, my parents said there was a new neighbor coming and to greet them at the door, are you that person?\"",
 
-            {{"Exit", "choice_exit"},{"Offer (" + to_string(items.size()) +" items)" , "choice_offer"},
+            {{"Exit", "choice_exit"},{"Offer (" + to_string(GetSizeOfInventory()) +" items)" , "choice_offer"},
             {"Compliment","choice_compliment"},{"Challenge","choice_challenge"}}
 
         }},

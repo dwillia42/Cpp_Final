@@ -47,7 +47,7 @@ void House::PrintInfo(){
     //Ask the user if they want to see the NPC's description
     cout << "\n* The address of this house is: " << address << endl;
     cout << '\n';
-    cout << "Would you like to view a description of " << NPC.GetName() << "?" << endl;
+    cout << "* Would you like to view a description of " << NPC.GetName() << "?" << endl << endl;
     cout << "[" << 1 << "]" << " Yes" << endl;
     cout << "[" << 2 << "]" << " No" << endl;
     cout << "\n> ";
@@ -57,13 +57,14 @@ void House::PrintInfo(){
     //Input validation, same as in the dialogue function in Person.cpp
     while(true){
         if (cin.fail()){
-            cout << "Expected an integer input. Please try again." << endl;
+            cout << "\n* Expected an integer input. Please try again." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "\n> ";
             cin >> ans;
         }
         else if(ans != 1 && ans != 2){
-            cout << "Input must be an from the given choice options:" << endl;
+            cout << "\nInput must be an from the given choice options:" << endl << endl;
             cout << "[" << 1 << "]" << " Yes" << endl;
             cout << "[" << 2 << "]" << " No" << endl;
             cout << "\n> ";
@@ -77,7 +78,7 @@ void House::PrintInfo(){
     //If the player's choice was yes ([1]), then the description is printed.
     if (ans == 1){
         NPC.PrintDesc();
-        cout << "\n* Press Enter to continue..." << endl;
+        cout << "* Press Enter to continue..." << endl;
         cout << "\n> ";
         cin.ignore();
         cin.get();
