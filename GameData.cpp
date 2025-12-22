@@ -24,7 +24,7 @@ void GameData::CreateMap(){
 void GameData::InitializeDialogue(){       
         map<string, DialogueState> introDialogue = {
             {"start", {
-                "* Welcome to THE GREATEST MAYOR THAT\'S EVER LIVED:"
+                "* Welcome to THE GREATEST MAYOR TO EVER LIVE:"
                 "\n"
                 "\n* Your name is Player and you have a DREAM!"
                 "\n"
@@ -178,9 +178,9 @@ void GameData::InitializeDialogue(){
                 "* You told Eri that it was a waste of time to come here if you couldn\'t get a "
                 "\nvote out of it."
                 "\n"
-                "* \"Gee, you seem like a greeaaat MAYOR candidate.\""
+                "\n* \"Gee, you seem like a greeaaat MAYOR candidate.\""
                 "\n"
-                "* You have not secured Eri Jinnsen\'s vote.",
+                "\n* You have not secured Eri Jinnsen\'s vote.",
                 
                 {{"Try again.", "choice_tryAgain"}, {"Leave","choice_leave"}}
             }},
@@ -258,7 +258,7 @@ void GameData::InitializeDialogue(){
                 "\n"
                 "\n* \"Seriously?\""
                 "\n"
-                "* You have not secured Jorimiah Jo\'s vote.",
+                "\n* You have not secured Jorimiah Jo\'s vote.",
                 
                 {{"Try again.", "choice_tryAgain"}, {"Leave.","choice_leave"}}
             }},
@@ -752,7 +752,7 @@ void GameData::SetEndingDialogue(){
             {"start", {
                 "* Your journey is nearly over, you\'ve talked to all those people and maybe "
                 "\n"
-                "something can come out of it now."
+                "\nsomething can come out of it now."
                 "\n* You turn the door knob, and it\'s unlocked."
                 "\n"
                 "\n* As you enter the Town Hall you think about all the people you\'ve met."
@@ -770,9 +770,9 @@ void GameData::SetEndingDialogue(){
                 "\nwith the results."
                 "\n"
                 "\n* \"What\'s with the confused look? Didn\'t you think more people lived here than "
-                "\nyou saw? Well I\'m reading the results and..."
+                "\nyou saw? Well I\'m reading the results and...\""
                 "\n"
-                "\n* by a very close margin, you won!\""
+                "\n* \"by a very close margin, you won!\""
                 "\n"
                 "\n* Wait, really? You completed your one true goal!"
                 "\n"
@@ -784,7 +784,7 @@ void GameData::SetEndingDialogue(){
                 "\n"
                 "\n* \"Ehh, I suppose it doesn\'t matter anyways.\""
                 "\n"
-                "\n* \"Good Game, Player.\"",
+                "\n* \"Good Game, \"Player.\" Heh heh...\"",
 
 
                 {{"GAME OVER.", "choice_over"}}
@@ -809,22 +809,22 @@ void GameData::SetPersonDialogue(int personIndex, map<string, DialogueState> dia
 }
 
 void GameData::InitializeCharacterDescriptions(){
-    string OldTerryDesc = "The current mayor of the town."
-                          "\nHe\'s looking to retire at the ripe age of " + to_string(GetPeople().at(0).GetAge()) + ".";
-    string havidayDesc = "The " + to_string(GetPeople().at(1).GetAge()) + "-year-old daughter of the Havidays."
-                         "\nOften hanging out with the neighborhood kid her age.";
-    string eriDesc = "Maid working to tend the Adias home."
-                     "\nIs thinking about moving out.";
-    string joDesc = "Has previously tried to be mayor."
-                    "\nHe's usually home making videos.";
-    string clarkDesc = "Old Terry's friend from way back."
-                       "\nHe likes volunteering at the library.";
-    string verisDesc = "Her family's relatively wealthy."
-                       "\nAnd at only " + to_string(GetPeople().at(5).GetAge()) + " she's playing a way harder game than you.";
-    string adiasDesc = "He runs a small local clinic."
-                       "\nHe expected being a doctor would be cooler.";
-    string laiosDesc = "He's been teaching for 15 years."
-                       "\nHis students prefer the library.";
+    string OldTerryDesc = "* The current mayor of the town.\n"
+                          "\n* He\'s looking to retire at the ripe age of " + to_string(GetPeople().at(0).GetAge()) + ".";
+    string havidayDesc = "* The " + to_string(GetPeople().at(1).GetAge()) + "-year-old daughter of the Havidays."
+                         "\n\n* Often hanging out with the neighborhood kid her age.";
+    string eriDesc = "* Maid working to tend the Adias home."
+                     "\n\n* Is thinking about moving out.";
+    string joDesc = "* Has previously tried to be mayor."
+                    "\n\n* He's usually home making videos.";
+    string clarkDesc = "* Old Terry's friend from way back."
+                       "\n\n* He likes volunteering at the library.";
+    string verisDesc = "* Her family's relatively wealthy."
+                       "\n\n* And at only " + to_string(GetPeople().at(5).GetAge()) + " she's playing a way harder game than you.";
+    string adiasDesc = "* He runs a small local clinic."
+                       "\n\n* He expected being a doctor would be cooler.";
+    string laiosDesc = "* He's been teaching for 15 years."
+                       "\n\n* His students prefer the library.";
 
     this->people.at(0).SetDesc(OldTerryDesc);
     this->people.at(1).SetDesc(havidayDesc);

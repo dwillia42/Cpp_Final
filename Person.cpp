@@ -157,7 +157,7 @@ vector<string> Person::Dialogue(GameData& game){
         while(true){
             if (cin.fail() || (choice_index < 1 || choice_index > currState.choices.size())){
                 if (cin.fail()){
-                    cout << "\n* Expected an integer input. Please try again." << endl << endl;
+                    cout << "\n* Expected an integer input. Please try again." << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "\n> ";

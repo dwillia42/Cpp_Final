@@ -1,5 +1,5 @@
 #if defined(__CYGWIN__) || defined(_WIN32)
-#define  NOMINMAX 
+#define  NOMINMAX
 #define  _HAS_STD_BYTE 0
 #include <windows.h>
 #endif
@@ -247,7 +247,6 @@ void Player::MovePrompt(){
                 cout << "[I] Inventory" << endl;
                 cout << "[V] Votes" << endl;
                 cout << "[M] Map" << endl;
-                cout << "[H] Houses Visited" << endl;
                 cout << "\n> ";
                 cin >> playerMove;
             }
@@ -272,7 +271,7 @@ void Player::MovePrompt(){
                 
             case 's':
                 if(roadLocation == 3){
-                    cout << "* Going this far is out of town limits." << endl;
+                    cout << "\n* Going this far is out of town limits." << endl;
                     break;
                 }
                 else{
@@ -316,7 +315,7 @@ void Player::MovePrompt(){
             cout <<"\n";
             cout << "* Left is " << road.at(roadLocation)[0].GetHouseName() << endl << endl;
             cout << "* Right is " << road.at(roadLocation)[1].GetHouseName() << endl << endl;
-            cout << "What would you like to do?" << endl << endl;
+            cout << "* What would you like to do?" << endl << endl;
             cout << "---------------------------------" << endl << endl;
             cout << "   [W]" << endl;
             cout << "[A][S][D]" << endl << endl;

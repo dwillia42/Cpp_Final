@@ -21,6 +21,9 @@ void StartGame(GameData& game){
     int prevIndex = 0;
     int lastIndex = 1;
     
+    //used as a condition for something to not happen twice
+    bool alreadyWon = false;
+    
     //Runs Old Terry's first dialogue.
     people.at(0).Dialogue(game);
     
@@ -78,7 +81,7 @@ void StartGame(GameData& game){
         if (currentHouse.GetHouseName() == "The Adias House"){
             //input validation if the player already secured the vote.
             if (people.at(2).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             }
             else{
                 //runs the dialogue, and determines what changes bases on
@@ -94,7 +97,7 @@ void StartGame(GameData& game){
         else if (currentHouse.GetHouseName() == "The Jo House"){
             //input validation if the player already secured the vote.
             if(people.at(3).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
                 cout << "\n";
             }
             else{
@@ -112,7 +115,7 @@ void StartGame(GameData& game){
         else if (currentHouse.GetHouseName() == "The Library"){
             //input validation if the player already secured the vote.
             if(people.at(4).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
                 cout << "\n";
             }
             else{
@@ -130,7 +133,7 @@ void StartGame(GameData& game){
         else if (currentHouse.GetHouseName() == "The Serket House"){
             //input validation if the player already secured the vote.
             if(people.at(5).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
                 cout << "\n";
             }
             //uses the key returned by the minigame
@@ -148,7 +151,7 @@ void StartGame(GameData& game){
         else if (currentHouse.GetHouseName() == "The Clinic"){
             //input validation if the player already secured the vote.
             if (people.at(6).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote." << endl;
                 cout << "\n";
             }
             else{
@@ -166,7 +169,7 @@ void StartGame(GameData& game){
         else if (currentHouse.GetHouseName() == "The School"){
             //input validation if the player already secured the vote.
             if(people.at(7).VoteStatus()){
-                cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+                cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
                 cout << "\n";
             }
             else{
@@ -183,7 +186,7 @@ void StartGame(GameData& game){
         }
         //input validation if the player already secured the vote.
         else if (currentHouse.GetHouseName() == "The Haviday House"){
-            cout << "* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
+            cout << "\n* You have already secured " << currentHouse.GetPerson().GetName() << "\'s vote.";
             cout << "\n";
         }
         else if (currentHouse.GetHouseName() == "Town Hall"){
@@ -201,7 +204,8 @@ void StartGame(GameData& game){
             }
         }
         //condition that is checked after every house visit.
-        if(game.player.GetVotes() == 7){
+        if(game.player.GetVotes() == 7 && alreadyWon == false){
+            alreadyWon = true;
             cout << "* Congratulations! You now have everyones vote." << endl;
             cout << "\n* Go Back to Town Hall to talk to Old Terry." << endl;
             
