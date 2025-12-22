@@ -12,6 +12,8 @@ class GameData;
 
 using namespace std;
 
+//Two structs DialogueOption and DialogueState.
+//Needed in order for the dialogue to work properly
 struct DialogueOption{
         string choice;
         string nextState;

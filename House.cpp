@@ -8,6 +8,10 @@
 #include <limits>
 using namespace std;
 
+//Default constructor for House
+//Use of initalizer list since Person didn't have
+//a default constructor before
+//https://www.geeksforgeeks.org/cpp/when-do-we-use-initializer-list-in-c/
 House::House()
 : NPC()
 {
@@ -16,6 +20,7 @@ House::House()
     this->isVisited = false;
 }
 
+//Constructor for House
 House::House(Person& NPC, string HouseName, string address) 
 {
     this->NPC = &NPC;
@@ -24,21 +29,31 @@ House::House(Person& NPC, string HouseName, string address)
     this->isVisited = false;
 }
 
+//Changes the value of wasVisited to true when a player goes to 
+// a house
 void House::WasVisited(){
     isVisited = true;
 }
 
+
+//Gets whether or not a house was visited by the player
 bool House::GetVisitationStatus(){
     return isVisited;
 }
 
+//Returns the name of the House Object
 string House::GetHouseName(){
     return HouseName;
 }
+
+//Returns the person who lives in the house
 Person House::GetPerson(){
     return *NPC;
 }
 
+
+//Prints the information about the house, and
+//potentially information about who lives there too.
 void House::PrintInfo(){
     //Users choice to whether or not they want to see the NPC's description
     int ans;

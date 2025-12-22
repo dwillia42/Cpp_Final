@@ -16,6 +16,9 @@
 
 using namespace std;
 
+//Default Constructor for Player.
+//Sets each characters respective status to X
+//at the beginning of the game to change over time.
 Player::Player(){
     this->votes = 0;
     this->roadLocation = 0;
@@ -31,26 +34,37 @@ Player::Player(){
     PersonChar.emplace("Laios Vangrad","X");
 }
 
+
+//Sets the current House (latest house that was visited by player)
 void Player::SetCurrentHouse(const House& house){
     currHouse = house;
 }
 
+//returns the current House (latest house that was visited by player)
 House Player::GetCurrentHouse(){
     return currHouse;
 }
 
+//When a vote from a person is secured,
+//the vote count increases by +1
 void Player::AddVote(){
     votes += 1;
 }
 
+//The players option the view how many votes they have out of 7
+//while not at a house (on the road).
 void Player::ViewVotes(){
     cout << "* Current Votes: " << votes << " out of 7.";
 }
 
+//Returns the amount of votes recieved so far
 int Player::GetVotes(){
     return votes;
 }
 
+
+//The players option to view their inventory while not
+//at a house (on the road).
 void Player::ViewInventory(){
     cout << "---------------------------------" << endl << endl;
     cout << "* Your Inventory: \n" << endl;
@@ -59,16 +73,22 @@ void Player::ViewInventory(){
     }
 }
 
+//Returns the size of the inventory
 int Player::GetSizeOfInventory(){
     return inventory.size();
 }
 
+//When someone in the game gives the player an item,
+//that item is added to their inventory.
 void Player::AddToInventory(string item){
     inventory.push_back(item);
 }
 
+//Removes the item from the player's inventory.
 void Player::RemoveFromInventory(string item){
     int itemIndex = 0;
+
+    //Finds the index the item is at
     for (size_t i = 0; i < inventory.size(); i++){
         if (inventory.at(i) == item){
             itemIndex = i;
@@ -76,11 +96,17 @@ void Player::RemoveFromInventory(string item){
         }
     }
 
+    //deletes the item at that index (popped method into google)
     inventory.erase(inventory.begin() + itemIndex);
 }
 
+
+//Let's the player choose from the inventory when they Offer.
 string Player::ChooseFromInventory(){
     int itemNum;
+    
+    //if the player enters negative one (or if their inventory is empty),
+    //they don't offer anything. Otherwise, the item they offer is returned.
     cout << "\n* Enter -1 if you dont want to choose any item." << endl;
     cout << "\n> ";
     cin >> itemNum;
@@ -92,12 +118,19 @@ string Player::ChooseFromInventory(){
     }
 }
 
+//Returns the player's inventory
 vector<string> Player::GetInventory(){
     return inventory;
 }
 
+//Creates the map, but doesn't add everything
 void Player::InitializeMap(){
+
+    //number of pointers to arrays of size 2
     const int NUM_ROADBLOCKS = 4;
+
+    //creates each pointer to an array of houses,
+    //and adds them to road.
     for (int i = 0; i < NUM_ROADBLOCKS; i++){
         House* currPtr = nullptr;
         currPtr = new House[2];
@@ -105,6 +138,9 @@ void Player::InitializeMap(){
     }
 }
 
+//Fills a element of road with 2 houses
+//Ex: passing Town Hall and The Haviday houses, and 0 gives
+//the first pointer in road pointing to [Town Hall, The Haviday House]
 void Player::FillSection(const House& houseLeft, const House& houseRight, int sectionNum){
     House* currSection = road.at(sectionNum);
     currSection[0] = houseLeft;
@@ -112,6 +148,7 @@ void Player::FillSection(const House& houseLeft, const House& houseRight, int se
 
 }
 
+//After the game finishes, free's the memory on the heap
 void Player::FreeMap(){
     for (size_t i = 0; i < road.size(); i++){
         delete[] road.at(i);
@@ -119,6 +156,8 @@ void Player::FreeMap(){
     }
 }
 
+//replaces the road section you’re going to with your player symbol, 
+//and replaces the one before or after (based on movement key given) with empty space if it's odd, or a “|" if it's even so it looks like a road
 void Player::SetPlayerChar(char playerMove) {
     if (toupper(playerMove) == 'W') {
         PlayerChar.at(roadLocation) = "±";
@@ -145,6 +184,8 @@ void Player::VoteSecured(string name) {
     
 }
 
+//Shows the map 
+//splitted the map at the parts with variable chars with npc & symbols(both changed to string because chars weren't big enough for some symbols) 
 void Player::ViewMap(){
     cout << "┌──────┬───┬──────┐\n"
             "│/¯¯¯\\ ║   ║ /¯¯¯\\│\n"
@@ -164,7 +205,10 @@ void Player::ViewMap(){
 }
 
 
+//give player the ability to move across the map and
+//view there inventory, votes, and map.
 void Player::MovePrompt(){
+    //See above for where this comes from
     #if defined(_WIN32)
     SetConsoleOutputCP(CP_UTF8);
     #endif

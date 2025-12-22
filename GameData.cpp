@@ -20,10 +20,13 @@ void GameData::CreateMap(){
 
 }
 
+//maps of character dialogue trees and has keys that're used for special scenarios like inventory access and tictactoe
 void GameData::InitializeDialogue(){       
         map<string, DialogueState> introDialogue = {
             {"start", {
-                "* Your name is Player and you have a DREAM!"
+                "* Welcome to THE GREATEST MAYOR THAT\'S EVER LIVED:"
+                "\n"
+                "\n* Your name is Player and you have a DREAM!"
                 "\n"
                 "\n* And that DREAM is to become MAYOR of Village Town."
                 "\n"
@@ -728,7 +731,7 @@ void GameData::InitializeDialogue(){
             }}
         };
 
-
+        //indexes dialogue to specific persons
         SetPersonDialogue(0, introDialogue);
         SetPersonDialogue(1, havidayDialogue);
         SetPersonDialogue(2, eriDialogue);

@@ -14,6 +14,7 @@ using namespace std;
 
 class GameData{
     private:
+    //All of the data needed for the game, as well as method to initialize the data.
     vector<Person> people ={Person("Old Terry", 43, "male"),
                             Person("Noel Haviday", 12, "female"),
                             Person("Eri Jinnsen", 24, "female"),
@@ -32,7 +33,6 @@ class GameData{
                             House(people.at(6), "The Clinic", "30 West Mayor Street"),
                             House(people.at(7), "The School", "32 East Mayor Street")};
     public:
-    //Function that creates map
     Player player;
     void CreateMap();
     void InitializeDialogue();
